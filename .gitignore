@@ -359,3 +359,6 @@ MigrationBackup/
 
 #Custom Environment Files
 localenv.json
+
+# Too long file names for git
+test/
