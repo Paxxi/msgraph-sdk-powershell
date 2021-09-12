@@ -10,7 +10,7 @@ namespace Microsoft.Graph.PowerShell.Security.Models
 
         /// <summary>Read-only. Nullable.</summary>
         [Origin(PropertyOrigin.Owned)]
-        public MicrosoftGraphAlert[] Alerts { get; set; }
+        public MgAlert[] Alerts { get; set; }
 
         [Origin(PropertyOrigin.Owned)]
         public MicrosoftGraphCloudAppSecurityProfile[] CloudAppSecurityProfiles { get; set; }
@@ -38,9 +38,9 @@ namespace Microsoft.Graph.PowerShell.Security.Models
         [Origin(PropertyOrigin.Owned)]
         public MicrosoftGraphSecureScoreControlProfile[] SecureScoreControlProfiles { get; set; }
 
-        [Origin(PropertyOrigin.Owned)] public MicrosoftGraphSecureScore[] SecureScores { get; set; }
+        [Origin(PropertyOrigin.Owned)] public MgSecureScore[] SecureScores { get; set; }
 
-        [Origin(PropertyOrigin.Owned)] public Action[] SecurityActions { get; set; }
+        [Origin(PropertyOrigin.Owned)] public MgAction[] SecurityActions { get; set; }
 
         [Origin(PropertyOrigin.Owned)] public MicrosoftGraphTiIndicator[] TiIndicators { get; set; }
 

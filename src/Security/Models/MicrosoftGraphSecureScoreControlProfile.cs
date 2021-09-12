@@ -10,7 +10,7 @@ namespace Microsoft.Graph.PowerShell.Security.Models
     {
         private readonly MicrosoftGraphEntity __microsoftGraphEntity = new MicrosoftGraphEntity();
 
-        private MicrosoftGraphSecurityVendorInformation _vendorInformation;
+        private MgSecurityVendorInformation _vendorInformation;
 
         /// <summary>Control action type (Config, Review, Behavior).</summary>
         [Origin(PropertyOrigin.Owned)]
@@ -101,9 +101,9 @@ namespace Microsoft.Graph.PowerShell.Security.Models
 
         /// <summary>securityVendorInformation</summary>
         [Origin(PropertyOrigin.Owned)]
-        public MicrosoftGraphSecurityVendorInformation VendorInformation
+        public MgSecurityVendorInformation VendorInformation
         {
-            get => _vendorInformation = _vendorInformation ?? new MicrosoftGraphSecurityVendorInformation();
+            get => _vendorInformation = _vendorInformation ?? new MgSecurityVendorInformation();
             set => _vendorInformation = value;
         }
     }

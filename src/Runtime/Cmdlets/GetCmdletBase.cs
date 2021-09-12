@@ -22,6 +22,13 @@ namespace Microsoft.Graph.PowerShell.Runtime
         IEventListener
         where TModel : class
     {
+        protected const string IdParameterSet = "Id";
+        protected const string InputObjectParameterSet = "InputObject";
+        protected const string ProxyParameterSet = "Proxy";
+        protected const string FilterParameterSet = "Filter";
+        protected const string SearchParameterSet = "Search";
+        protected const string ListParameterSet = "List";
+
         /// <summary>
         ///     Default number of items per page.
         /// </summary>
@@ -33,43 +40,43 @@ namespace Microsoft.Graph.PowerShell.Runtime
         internal const int MaxPageSize = 999;
 
         /// <summary>A copy of the Invocation Info (necessary to allow asJob to clone this cmdlet)</summary>
-        protected InvocationInfo __invocationInfo;
+        protected InvocationInfo InvocationInfo;
 
         /// <summary>
-        ///     The <see cref="CancellationTokenSource" /> for this operation.
+        ///     The <see cref="System.Threading.CancellationTokenSource" /> for this operation.
         /// </summary>
-        protected CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        protected CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
 
         private SwitchParameter _count;
 
         /// <summary>Backing field for <see cref="Top" /> property.</summary>
-        private int _top;
+        private int _top = -1;
 
         /// <summary>
         ///     A count of iterated pages thus far.
         /// </summary>
-        private int iteratedPages;
+        private int _iteratedPages;
 
         /// <summary>
         ///     Total number of items to be fetched.
         /// </summary>
-        private int limit;
+        private int _limit;
 
         /// <summary>
         ///     Total number of overflow items, less than the maximum number of items in a page.
         ///     Modulus of original page size.
         /// </summary>
-        private int overflowItemsCount;
+        private int _overflowItemsCount;
 
         /// <summary>
         ///     Total number of pages required to iterate page collections excluding overflow items.
         /// </summary>
-        private int requiredPages;
+        private int _requiredPages;
 
         /// <summary>
         ///     Total number of fetched items.
         /// </summary>
-        internal int totalFetchedItems;
+        internal int TotalFetchedItems;
 
         /// <summary>Wait for .NET debugger to attach</summary>
         [Parameter(Mandatory = false, DontShow = true, HelpMessage = "Wait for .NET debugger to attach")]
@@ -79,63 +86,48 @@ namespace Microsoft.Graph.PowerShell.Runtime
         protected abstract bool IsSingle { get; }
 
         /// <summary>Sets the page size of results.</summary>
-        [Parameter(Mandatory = false, HelpMessage = "Sets the page size of results.")]
-        [Info(
-            Required = false,
-            ReadOnly = false,
-            Description = @"The page size of results.",
-            PossibleTypes = new[] {typeof(int)})]
-        [Category(ParameterCategory.Runtime)]
+        [Parameter(ParameterSetName = ListParameterSet, Mandatory = false, HelpMessage = "Sets the page size of results.")]
+        [Parameter(ParameterSetName = FilterParameterSet, Mandatory = false, HelpMessage = "Sets the page size of results.")]
+        [Parameter(ParameterSetName = SearchParameterSet, Mandatory = false, HelpMessage = "Sets the page size of results.")]
         public int PageSize { get; set; }
 
         /// <summary>List All pages</summary>
-        [Parameter(Mandatory = false, HelpMessage = "List all pages.")]
-        [Info(
-            Required = false,
-            ReadOnly = false,
-            Description = @"List all pages.",
-            PossibleTypes = new[] {typeof(SwitchParameter)})]
-        [Category(ParameterCategory.Runtime)]
+        [Parameter(ParameterSetName = ListParameterSet, Mandatory = false, HelpMessage = "List all pages.")]
+        [Parameter(ParameterSetName = FilterParameterSet, Mandatory = false, HelpMessage = "List all pages.")]
+        [Parameter(ParameterSetName = SearchParameterSet, Mandatory = false, HelpMessage = "List all pages.")]
         public SwitchParameter All { get; set; }
 
         /// <summary>Specifies a count of the total number of items in a collection. </summary>
-        [Parameter(Mandatory = false,
+        [Parameter(ParameterSetName = ListParameterSet, Mandatory = false,
             HelpMessage =
                 "Specifies a count of the total number of items in a collection. By default, this variable will be set in the global scope.")]
-        [Info(
-            Required = false,
-            ReadOnly = false,
-            Description =
-                @"Specifies a count of the total number of items in a collection. By default, this variable will be set in the global scope.",
-            PossibleTypes = new[] {typeof(string)})]
-        [Category(ParameterCategory.Runtime)]
+        [Parameter(ParameterSetName = FilterParameterSet, Mandatory = false,
+            HelpMessage =
+                "Specifies a count of the total number of items in a collection. By default, this variable will be set in the global scope.")]
+        [Parameter(ParameterSetName = SearchParameterSet, Mandatory = false,
+            HelpMessage =
+                "Specifies a count of the total number of items in a collection. By default, this variable will be set in the global scope.")]
         [Alias("CV")]
         public string CountVariable { get; set; }
 
         /// <summary>Expand related entities</summary>
-        [Parameter(Mandatory = false, HelpMessage = "Expand related entities")]
+        [Parameter(ParameterSetName = IdParameterSet, Mandatory = false, HelpMessage = "Expand related entities")]
+        [Parameter(ParameterSetName = InputObjectParameterSet, Mandatory = false, HelpMessage = "Expand related entities")]
+        [Parameter(ParameterSetName = ListParameterSet, Mandatory = false, HelpMessage = "Expand related entities")]
+        [Parameter(ParameterSetName = FilterParameterSet, Mandatory = false, HelpMessage = "Expand related entities")]
+        [Parameter(ParameterSetName = SearchParameterSet, Mandatory = false, HelpMessage = "Expand related entities")]
         [AllowEmptyCollection]
-        [Info(
-            Required = false,
-            ReadOnly = false,
-            Description = @"Expand related entities",
-            SerializedName = @"$expand",
-            PossibleTypes = new[] {typeof(string)})]
         [Alias("Expand")]
-        [Category(ParameterCategory.Query)]
         public string[] ExpandProperty { get; set; }
 
         /// <summary>Select properties to be returned</summary>
-        [Parameter(Mandatory = false, HelpMessage = "Select properties to be returned")]
+        [Parameter(ParameterSetName = IdParameterSet, Mandatory = false, HelpMessage = "Select properties to be returned")]
+        [Parameter(ParameterSetName = InputObjectParameterSet, Mandatory = false, HelpMessage = "Select properties to be returned")]
+        [Parameter(ParameterSetName = ListParameterSet, Mandatory = false, HelpMessage = "Select properties to be returned")]
+        [Parameter(ParameterSetName = FilterParameterSet, Mandatory = false, HelpMessage = "Select properties to be returned")]
+        [Parameter(ParameterSetName = SearchParameterSet, Mandatory = false, HelpMessage = "Select properties to be returned")]
         [AllowEmptyCollection]
-        [Info(
-            Required = false,
-            ReadOnly = false,
-            Description = @"Select properties to be returned",
-            SerializedName = @"$select",
-            PossibleTypes = new[] {typeof(string)})]
         [Alias("Select")]
-        [Category(ParameterCategory.Query)]
         public string[] Property { get; set; }
 
         /// <summary>SendAsync Pipeline Steps to be appended to the front of the pipeline</summary>
@@ -155,8 +147,8 @@ namespace Microsoft.Graph.PowerShell.Runtime
         /// <summary>Accessor for our copy of the InvocationInfo.</summary>
         public InvocationInfo InvocationInformation
         {
-            get => __invocationInfo = __invocationInfo ?? MyInvocation;
-            set => __invocationInfo = value;
+            get => InvocationInfo = InvocationInfo ?? MyInvocation;
+            set => InvocationInfo = value;
         }
 
         /// <summary>
@@ -165,19 +157,19 @@ namespace Microsoft.Graph.PowerShell.Runtime
         protected HttpPipeline Pipeline { get; set; }
 
         /// <summary>The URI for the proxy server to use</summary>
-        [Parameter(Mandatory = false, DontShow = true, HelpMessage = "The URI for the proxy server to use")]
+        [Parameter(ParameterSetName = ProxyParameterSet, Mandatory = true, DontShow = true, HelpMessage = "The URI for the proxy server to use")]
         [Category(ParameterCategory.Runtime)]
         public Uri Proxy { get; set; }
 
         /// <summary>Credentials for a proxy server to use for the remote call</summary>
-        [Parameter(Mandatory = false, DontShow = true,
+        [Parameter(ParameterSetName = ProxyParameterSet, Mandatory = false, DontShow = true,
             HelpMessage = "Credentials for a proxy server to use for the remote call")]
         [ValidateNotNull]
         [Category(ParameterCategory.Runtime)]
         public PSCredential ProxyCredential { get; set; }
 
         /// <summary>Use the default credentials for the proxy</summary>
-        [Parameter(Mandatory = false, DontShow = true, HelpMessage = "Use the default credentials for the proxy")]
+        [Parameter(ParameterSetName = ProxyParameterSet, Mandatory = false, DontShow = true, HelpMessage = "Use the default credentials for the proxy")]
         [Category(ParameterCategory.Runtime)]
         public SwitchParameter ProxyUseDefaultCredentials { get; set; }
 
@@ -187,14 +179,9 @@ namespace Microsoft.Graph.PowerShell.Runtime
         protected abstract string Url { get; }
 
         /// <summary>Include count of items</summary>
-        [Parameter(Mandatory = false, HelpMessage = "Include count of items")]
-        [Info(
-            Required = false,
-            ReadOnly = false,
-            Description = @"Include count of items",
-            SerializedName = @"$count",
-            PossibleTypes = new[] {typeof(SwitchParameter)})]
-        [Category(ParameterCategory.Query)]
+        [Parameter(ParameterSetName = ListParameterSet, Mandatory = false, HelpMessage = "Include count of items")]
+        [Parameter(ParameterSetName = FilterParameterSet, Mandatory = false, HelpMessage = "Include count of items")]
+        [Parameter(ParameterSetName = SearchParameterSet, Mandatory = false, HelpMessage = "Include count of items")]
         protected SwitchParameter Count
         {
             get => _count;
@@ -202,7 +189,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
         }
 
         /// <summary>Filter items by property values</summary>
-        [Parameter(Mandatory = false, HelpMessage = "Filter items by property values")]
+        [Parameter(ParameterSetName = FilterParameterSet, Mandatory = false, HelpMessage = "Filter items by property values")]
         [Info(
             Required = false,
             ReadOnly = false,
@@ -212,51 +199,34 @@ namespace Microsoft.Graph.PowerShell.Runtime
         [Category(ParameterCategory.Query)]
         public string Filter { get; set; }
 
+        /// <summary>Identity Parameter</summary>
+        [Parameter(ParameterSetName = InputObjectParameterSet, Mandatory = true, HelpMessage = "Identity Parameter", ValueFromPipeline = true)]
+        [Category(ParameterCategory.Path)]
+        public virtual TModel InputObject { get; set; }
+
         /// <summary>Search items by search phrases</summary>
-        [Parameter(Mandatory = false, HelpMessage = "Search items by search phrases")]
-        [Info(
-            Required = false,
-            ReadOnly = false,
-            Description = @"Search items by search phrases",
-            SerializedName = @"$search",
-            PossibleTypes = new[] {typeof(string)})]
-        [Category(ParameterCategory.Query)]
+        [Parameter(ParameterSetName = SearchParameterSet, Mandatory = false, HelpMessage = "Search items by search phrases")]
         public string Search { get; set; }
 
         /// <summary>Skip the first n items</summary>
-        [Parameter(Mandatory = false, HelpMessage = "Skip the first n items")]
-        [Info(
-            Required = false,
-            ReadOnly = false,
-            Description = @"Skip the first n items",
-            SerializedName = @"$skip",
-            PossibleTypes = new[] {typeof(int)})]
-        [Category(ParameterCategory.Query)]
+        [Parameter(ParameterSetName = ListParameterSet, Mandatory = false, HelpMessage = "Skip the first n items")]
+        [Parameter(ParameterSetName = FilterParameterSet, Mandatory = false, HelpMessage = "Skip the first n items")]
+        [Parameter(ParameterSetName = SearchParameterSet, Mandatory = false, HelpMessage = "Skip the first n items")]
         public int Skip { get; set; }
 
         /// <summary>Order items by property values</summary>
-        [Parameter(Mandatory = false, HelpMessage = "Order items by property values")]
+        [Parameter(ParameterSetName = ListParameterSet, Mandatory = false, HelpMessage = "Order items by property values")]
+        [Parameter(ParameterSetName = FilterParameterSet, Mandatory = false, HelpMessage = "Order items by property values")]
+        [Parameter(ParameterSetName = SearchParameterSet, Mandatory = false, HelpMessage = "Order items by property values")]
         [AllowEmptyCollection]
-        [Info(
-            Required = false,
-            ReadOnly = false,
-            Description = @"Order items by property values",
-            SerializedName = @"$orderby",
-            PossibleTypes = new[] {typeof(string)})]
         [Alias("OrderBy")]
-        [Category(ParameterCategory.Query)]
         public string[] Sort { get; set; }
 
         /// <summary>Show only the first n items</summary>
-        [Parameter(Mandatory = false, HelpMessage = "Show only the first n items")]
-        [Info(
-            Required = false,
-            ReadOnly = false,
-            Description = @"Show only the first n items",
-            SerializedName = @"$top",
-            PossibleTypes = new[] {typeof(int)})]
+        [Parameter(ParameterSetName = ListParameterSet, Mandatory = false, HelpMessage = "Show only the first n items")]
+        [Parameter(ParameterSetName = FilterParameterSet, Mandatory = false, HelpMessage = "Show only the first n items")]
+        [Parameter(ParameterSetName = SearchParameterSet, Mandatory = false, HelpMessage = "Show only the first n items")]
         [Alias("Limit")]
-        [Category(ParameterCategory.Query)]
         public int Top
         {
             get => _top;
@@ -266,10 +236,10 @@ namespace Microsoft.Graph.PowerShell.Runtime
         /// <summary>
         ///     <see cref="IEventListener" /> cancellation delegate. Stops the cmdlet when called.
         /// </summary>
-        Action IEventListener.Cancel => _cancellationTokenSource.Cancel;
+        Action IEventListener.Cancel => CancellationTokenSource.Cancel;
 
         /// <summary><see cref="IEventListener" /> cancellation token.</summary>
-        CancellationToken IEventListener.Token => _cancellationTokenSource.Token;
+        CancellationToken IEventListener.Token => CancellationTokenSource.Token;
 
         /// <summary>Handles/Dispatches events during the call to the REST service.</summary>
         /// <param name="id">The message id</param>
@@ -326,7 +296,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
         /// <summary>
         ///     Initializes paging values.
         /// </summary>
-        /// <param name="invocationInfo">A reference to <see cref="InvocationInfo" /> object.</param>
+        /// <param name="invocationInfo">A reference to <see cref="System.Management.Automation.InvocationInfo" /> object.</param>
         /// <param name="top">A reference to top parameter.</param>
         public void InitializeCmdlet(ref InvocationInfo invocationInfo, ref int top, ref SwitchParameter count)
         {
@@ -341,10 +311,10 @@ namespace Microsoft.Graph.PowerShell.Runtime
                         null));
 
             // Move `-Top` parameter to `limit`.
-            if (invocationInfo.BoundParameters.ContainsKey("Top")) limit = top;
+            if (invocationInfo.BoundParameters.ContainsKey("Top")) _limit = top;
 
             var currentPageSize = invocationInfo.BoundParameters.ContainsKey("PageSize") ? PageSize : DefaultPageSize;
-            if (invocationInfo.BoundParameters.ContainsKey("Top") && limit < currentPageSize) currentPageSize = limit;
+            if (invocationInfo.BoundParameters.ContainsKey("Top") && _limit < currentPageSize) currentPageSize = _limit;
 
             if (invocationInfo.BoundParameters.ContainsKey("PageSize") ||
                 invocationInfo.BoundParameters.ContainsKey("Top") || invocationInfo.BoundParameters.ContainsKey("All"))
@@ -354,10 +324,10 @@ namespace Microsoft.Graph.PowerShell.Runtime
                 top = currentPageSize;
             }
 
-            if (limit != default)
+            if (_limit != default)
             {
-                requiredPages = limit / currentPageSize;
-                overflowItemsCount = limit % currentPageSize;
+                _requiredPages = _limit / currentPageSize;
+                _overflowItemsCount = _limit % currentPageSize;
             }
 
             if (!invocationInfo.BoundParameters.ContainsKey("Count") &&
@@ -378,10 +348,10 @@ namespace Microsoft.Graph.PowerShell.Runtime
         /// <returns>True if it can iterate pages; otherwise False.</returns>
         public bool ShouldIteratePages(Dictionary<string, object> boundParameters, int itemsCount)
         {
-            iteratedPages++;
-            totalFetchedItems += itemsCount;
+            _iteratedPages++;
+            TotalFetchedItems += itemsCount;
 
-            return boundParameters.ContainsKey("All") && limit == default || totalFetchedItems < limit;
+            return boundParameters.ContainsKey("All") && _limit == default || TotalFetchedItems < _limit;
         }
 
         protected void OnBeforeWriteObject(Dictionary<string, object> boundParameters,
@@ -395,8 +365,8 @@ namespace Microsoft.Graph.PowerShell.Runtime
                 // Save the Count back to the PS environment in a global variable.
                 // We need to store count in a global variable since these cmdlets are exported as functions.
                 // i.e. Functions can't modify parent scope.
-                var psVI = SessionState.PSVariable;
-                psVI.Set(new PSVariable(CountVariable.Contains(":") ? CountVariable : $"global:{CountVariable}",
+                var psVi = SessionState.PSVariable;
+                psVi.Set(new PSVariable(CountVariable.Contains(":") ? CountVariable : $"global:{CountVariable}",
                     odataCount));
             }
         }
@@ -409,17 +379,17 @@ namespace Microsoft.Graph.PowerShell.Runtime
         public Uri GetOverflowItemsNextLinkUri(Uri requestUri)
         {
             var nextLinkUri = new UriBuilder(requestUri);
-            if (requiredPages == iteratedPages && overflowItemsCount > 0)
+            if (_requiredPages == _iteratedPages && _overflowItemsCount > 0)
             {
                 if (nextLinkUri.Query.Contains("$top"))
                 {
                     var queryString = HttpUtility.ParseQueryString(nextLinkUri.Query);
-                    queryString["$top"] = Uri.EscapeDataString(overflowItemsCount.ToString());
+                    queryString["$top"] = Uri.EscapeDataString(_overflowItemsCount.ToString());
                     nextLinkUri.Query = queryString.ToString();
                 }
                 else
                 {
-                    nextLinkUri.Query += "$top=" + Uri.EscapeDataString(overflowItemsCount.ToString());
+                    nextLinkUri.Query += "$top=" + Uri.EscapeDataString(_overflowItemsCount.ToString());
                 }
             }
 
@@ -448,7 +418,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
         protected override void BeginProcessing()
         {
             if (InvocationInformation?.BoundParameters != null)
-                InitializeCmdlet(ref __invocationInfo, ref _top, ref _count);
+                InitializeCmdlet(ref InvocationInfo, ref _top, ref _count);
             Module.Instance.SetProxyConfiguration(Proxy, ProxyCredential, ProxyUseDefaultCredentials);
             if (Break) AttachDebugger.Break();
             this.Signal(Runtime.Events.CmdletBeginProcessing).Wait();
@@ -529,18 +499,14 @@ namespace Microsoft.Graph.PowerShell.Runtime
                     await this.Signal(Runtime.Events.CmdletBeforeAPICall);
                     if (((IEventListener) this).Token.IsCancellationRequested) return;
                     if (IsSingle)
-                    {
-                        await Module.Instance.Client.Get<TModel>(Url,
+                        await Module.Instance.GraphClient.Get<TModel>(Url,
                             Property,
                             ExpandProperty,
-                            onOk, onDefault, this, Pipeline);
-                    }
+                            OnOk, OnDefault, this, Pipeline);
                     else
-                    {
-                        await Module.Instance.Client.List<TModel>(Url, Top, Skip,
-                            FormatSearchValue(__invocationInfo.BoundParameters, Search), Filter, Count, Sort, Property,
-                            ExpandProperty, onOk, onDefault, this, Pipeline);
-                    }
+                        await Module.Instance.GraphClient.List<TModel>(Url, Top, Skip,
+                            FormatSearchValue(InvocationInfo.BoundParameters, Search), Filter, Count, Sort, Property,
+                            ExpandProperty, OnOk, OnDefault, this, Pipeline);
 
                     await this.Signal(Runtime.Events.CmdletAfterAPICall);
                     if (((IEventListener) this).Token.IsCancellationRequested) return;
@@ -588,7 +554,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
         /// <returns>
         ///     A <see cref="Task" /> that will be complete when handling of the method is completed.
         /// </returns>
-        protected virtual async Task onDefault(HttpResponseMessage responseMessage, Task<OdataError> response)
+        protected virtual async Task OnDefault(HttpResponseMessage responseMessage, Task<OdataError> response)
         {
             using (NoSynchronizationContext)
             {
@@ -622,7 +588,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
         /// <returns>
         ///     A <see cref="Task" /> that will be complete when handling of the method is completed.
         /// </returns>
-        protected virtual async Task onOk(HttpResponseMessage responseMessage, Task<ODataResponse<TModel>> response)
+        protected virtual async Task OnOk(HttpResponseMessage responseMessage, Task<TModel> response)
         {
             using (NoSynchronizationContext)
             {
@@ -640,7 +606,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
         /// <returns>
         ///     A <see cref="System.Threading.Tasks.Task" /> that will be complete when handling of the method is completed.
         /// </returns>
-        protected async Task onOk(HttpResponseMessage responseMessage, Task<ODataCollection<TModel>> response)
+        protected async Task OnOk(HttpResponseMessage responseMessage, Task<ODataCollection<TModel>> response)
         {
             using (NoSynchronizationContext)
             {
@@ -659,7 +625,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
                         requestMessage = requestMessage.Clone(new Uri(result.OdataNextLink), Method.Get);
                         await this.Signal(Runtime.Events.FollowingNextLink);
                         if (((IEventListener) this).Token.IsCancellationRequested) return;
-                        await Module.Instance.Client.ListCall<TModel>(requestMessage, onOk, onDefault, this, Pipeline);
+                        await Module.Instance.GraphClient.ListCall<TModel>(requestMessage, OnOk, OnDefault, this, Pipeline);
                     }
             }
         }

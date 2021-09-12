@@ -6,13 +6,11 @@ using System;
 namespace Microsoft.Graph.PowerShell.Security.Models
 {
     /// <summary>securityAction</summary>
-    public class Action
+    public class MgAction
     {
-        private readonly MicrosoftGraphEntity _microsoftGraphEntity = new MicrosoftGraphEntity();
-
         private MicrosoftGraphResultInfo _errorInfo;
 
-        private MicrosoftGraphSecurityVendorInformation _vendorInformation;
+        private MgSecurityVendorInformation _vendorInformation;
 
         /// <summary>Reason for invoking this action.</summary>
         [Origin(PropertyOrigin.Owned)]
@@ -61,12 +59,7 @@ namespace Microsoft.Graph.PowerShell.Security.Models
         }
 
         /// <summary>Read-only.</summary>
-        [Origin(PropertyOrigin.Inherited)]
-        public string Id
-        {
-            get => _microsoftGraphEntity.Id;
-            set => _microsoftGraphEntity.Id = value;
-        }
+        public string Id { get; set; }
 
         /// <summary>
         ///     Timestamp when this action was last updated. The Timestamp type represents date and time information using ISO 8601
@@ -76,7 +69,7 @@ namespace Microsoft.Graph.PowerShell.Security.Models
         [Origin(PropertyOrigin.Owned)]
         public DateTime? LastActionDateTime { get; set; }
 
-        /// <summary>Action name.</summary>
+        /// <summary>MgAction name.</summary>
         [Origin(PropertyOrigin.Owned)]
         public string Name { get; set; }
 
@@ -105,9 +98,9 @@ namespace Microsoft.Graph.PowerShell.Security.Models
 
         /// <summary>securityVendorInformation</summary>
         [Origin(PropertyOrigin.Owned)]
-        public MicrosoftGraphSecurityVendorInformation VendorInformation
+        public MgSecurityVendorInformation VendorInformation
         {
-            get => _vendorInformation = _vendorInformation ?? new MicrosoftGraphSecurityVendorInformation();
+            get => _vendorInformation = _vendorInformation ?? new MgSecurityVendorInformation();
             set => _vendorInformation = value;
         }
     }

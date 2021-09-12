@@ -6,7 +6,7 @@ using Microsoft.Graph.PowerShell.Runtime;
 namespace Microsoft.Graph.PowerShell.Security.Models
 {
     /// <summary>averageComparativeScore</summary>
-    public class MicrosoftGraphAverageComparativeScore
+    public class MgAverageComparativeScore
     {
         /// <summary>Average score within specified basis.</summary>
         [Info(

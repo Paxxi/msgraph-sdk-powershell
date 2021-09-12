@@ -11,8 +11,8 @@ namespace Microsoft.Graph.PowerShell.Security.Cmdlets
     /// [OpenAPI] security_CreateAlerts=>POST:"/security/alerts"
     /// </remarks>
     [System.Management.Automation.Cmdlet(System.Management.Automation.VerbsCommon.New, @"MgSecurityAlert", SupportsShouldProcess = true)]
-    [System.Management.Automation.OutputType(typeof(MicrosoftGraphAlert))]
-    public class NewMgSecurityAlert : NewCmdletBase<MicrosoftGraphAlert>
+    [System.Management.Automation.OutputType(typeof(MgAlert))]
+    public class NewMgSecurityAlert : NewCmdletBase<MgAlert>
     {
         protected override string Url => "https://graph.microsoft.com/beta/security/alerts/";
     }

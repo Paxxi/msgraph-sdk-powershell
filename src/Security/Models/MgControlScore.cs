@@ -6,7 +6,7 @@ using Microsoft.Graph.PowerShell.Runtime;
 namespace Microsoft.Graph.PowerShell.Security.Models
 {
     /// <summary>controlScore</summary>
-    public class MicrosoftGraphControlScore
+    public class MgControlScore
     {
         /// <summary>Control action category (Identity, Data, Device, Apps, Infrastructure).</summary>
         [Info(

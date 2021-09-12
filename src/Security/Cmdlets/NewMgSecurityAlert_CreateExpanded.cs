@@ -4,17 +4,18 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Graph.PowerShell.Runtime;
+using Microsoft.Graph.PowerShell.Security.Models;
 
-namespace Microsoft.Graph.PowerShell.Cmdlets
+namespace Microsoft.Graph.PowerShell.Security.Cmdlets
 {
-    using static Microsoft.Graph.PowerShell.Runtime.Extensions;
+    using static Runtime.Extensions;
 
     /// <summary>Read-only. Nullable.</summary>
     /// <remarks>
     /// [OpenAPI] security_CreateAlerts=>POST:"/security/alerts"
     /// </remarks>
     [global::System.Management.Automation.Cmdlet(global::System.Management.Automation.VerbsCommon.New, @"MgSecurityAlert_CreateExpanded", SupportsShouldProcess = true)]
-    [global::System.Management.Automation.OutputType(typeof(Microsoft.Graph.PowerShell.Security.Models.MicrosoftGraphAlert))]
+    [global::System.Management.Automation.OutputType(typeof(Microsoft.Graph.PowerShell.Security.Models.MgAlert))]
     [global::Microsoft.Graph.PowerShell.Description(@"Read-only. Nullable.")]
     [global::Microsoft.Graph.PowerShell.Generated]
     [global::Microsoft.Graph.PowerShell.Profile("v1.0-beta")]
@@ -91,10 +92,10 @@ namespace Microsoft.Graph.PowerShell.Cmdlets
         public string AzureTenantId { get => BodyParameterBody.AzureTenantId ?? null; set => BodyParameterBody.AzureTenantId = value; }
 
         /// <summary>Backing field for <see cref="BodyParameterBody" /> property.</summary>
-        private Microsoft.Graph.PowerShell.Security.Models.MicrosoftGraphAlert _bodyParameterBody= new Microsoft.Graph.PowerShell.Security.Models.MicrosoftGraphAlert();
+        private Microsoft.Graph.PowerShell.Security.Models.MgAlert _bodyParameterBody= new Microsoft.Graph.PowerShell.Security.Models.MgAlert();
 
         /// <summary>alert</summary>
-        private Microsoft.Graph.PowerShell.Security.Models.MicrosoftGraphAlert BodyParameterBody { get => this._bodyParameterBody; set => this._bodyParameterBody = value; }
+        private Microsoft.Graph.PowerShell.Security.Models.MgAlert BodyParameterBody { get => this._bodyParameterBody; set => this._bodyParameterBody = value; }
 
         /// <summary>Wait for .NET debugger to attach</summary>
         [global::System.Management.Automation.Parameter(Mandatory = false, DontShow = true, HelpMessage = "Wait for .NET debugger to attach")]
@@ -113,7 +114,7 @@ namespace Microsoft.Graph.PowerShell.Cmdlets
         public string Category { get => BodyParameterBody.Category ?? null; set => BodyParameterBody.Category = value; }
 
         /// <summary>The reference to the client API class.</summary>
-        public Client Client => Microsoft.Graph.PowerShell.Module.Instance.Client;
+        public GraphClient GraphClient => Microsoft.Graph.PowerShell.Module.Instance.GraphClient;
 
         /// <summary>
         /// Time at which the alert was closed. The Timestamp type represents date and time information using ISO 8601 format and
@@ -587,8 +588,8 @@ namespace Microsoft.Graph.PowerShell.Cmdlets
         ReadOnly = false,
         Description = @"securityVendorInformation",
         SerializedName = @"vendorInformation",
-        PossibleTypes = new [] { typeof(Microsoft.Graph.PowerShell.Security.Models.MicrosoftGraphSecurityVendorInformation) })]
-        public Microsoft.Graph.PowerShell.Security.Models.MicrosoftGraphSecurityVendorInformation VendorInformation { get => BodyParameterBody.VendorInformation ?? null /* object */; set => BodyParameterBody.VendorInformation = value; }
+        PossibleTypes = new [] { typeof(Microsoft.Graph.PowerShell.Security.Models.MgSecurityVendorInformation) })]
+        public Microsoft.Graph.PowerShell.Security.Models.MgSecurityVendorInformation VendorInformation { get => BodyParameterBody.VendorInformation ?? null /* object */; set => BodyParameterBody.VendorInformation = value; }
 
         /// <summary>
         /// Threat intelligence pertaining to one or more vulnerabilities related to this alert.
@@ -609,12 +610,12 @@ namespace Microsoft.Graph.PowerShell.Cmdlets
         /// happens on that response. Implement this method in a partial class to enable this behavior
         /// </summary>
         /// <param name="responseMessage">the raw response message as an global::System.Net.Http.HttpResponseMessage.</param>
-        /// <param name="response">the body result as a <see cref="Microsoft.Graph.PowerShell.Security.Models.MicrosoftGraphAlert" /> from
+        /// <param name="response">the body result as a <see cref="MgAlert" /> from
         /// the remote call</param>
         /// <param name="returnNow">/// Determines if the rest of the onCreated method should be processed, or if the method should
         /// return immediately (set to true to skip further processing )</param>
 
-        partial void overrideOnCreated(global::System.Net.Http.HttpResponseMessage responseMessage, global::System.Threading.Tasks.Task<Microsoft.Graph.PowerShell.Security.Models.MicrosoftGraphAlert> response, ref global::System.Threading.Tasks.Task<bool> returnNow);
+        partial void overrideOnCreated(global::System.Net.Http.HttpResponseMessage responseMessage, global::System.Threading.Tasks.Task<Microsoft.Graph.PowerShell.Security.Models.MgAlert> response, ref global::System.Threading.Tasks.Task<bool> returnNow);
 
         /// <summary>
         /// <c>overrideOnDefault</c> will be called before the regular onDefault has been processed, allowing customization of what
@@ -772,7 +773,7 @@ namespace Microsoft.Graph.PowerShell.Cmdlets
                 try
                 {
                     await ((Microsoft.Graph.PowerShell.Runtime.IEventListener)this).Signal(Microsoft.Graph.PowerShell.Runtime.Events.CmdletBeforeAPICall); if( ((Microsoft.Graph.PowerShell.Runtime.IEventListener)this).Token.IsCancellationRequested ) { return; }
-                    //await this.Client.SecurityCreateAlerts(BodyParameterBody, onCreated, onDefault, this, Pipeline);
+                    //await this.GraphClient.SecurityCreateAlerts(BodyParameterBody, onCreated, onDefault, this, Pipeline);
                     await ((Microsoft.Graph.PowerShell.Runtime.IEventListener)this).Signal(Microsoft.Graph.PowerShell.Runtime.Events.CmdletAfterAPICall); if( ((Microsoft.Graph.PowerShell.Runtime.IEventListener)this).Token.IsCancellationRequested ) { return; }
                 }
                 catch (Microsoft.Graph.PowerShell.Runtime.UndeclaredResponseException urexception)
@@ -798,12 +799,12 @@ namespace Microsoft.Graph.PowerShell.Cmdlets
 
         /// <summary>a delegate that is called when the remote service returns 201 (Created).</summary>
         /// <param name="responseMessage">the raw response message as an global::System.Net.Http.HttpResponseMessage.</param>
-        /// <param name="response">the body result as a <see cref="Microsoft.Graph.PowerShell.Security.Models.MicrosoftGraphAlert" /> from
+        /// <param name="response">the body result as a <see cref="MgAlert" /> from
         /// the remote call</param>
         /// <returns>
         /// A <see cref="Task" /> that will be complete when handling of the method is completed.
         /// </returns>
-        private async global::System.Threading.Tasks.Task onCreated(global::System.Net.Http.HttpResponseMessage responseMessage, global::System.Threading.Tasks.Task<Microsoft.Graph.PowerShell.Security.Models.MicrosoftGraphAlert> response)
+        private async global::System.Threading.Tasks.Task onCreated(global::System.Net.Http.HttpResponseMessage responseMessage, global::System.Threading.Tasks.Task<Microsoft.Graph.PowerShell.Security.Models.MgAlert> response)
         {
             using( NoSynchronizationContext )
             {
@@ -815,7 +816,7 @@ namespace Microsoft.Graph.PowerShell.Cmdlets
                     return ;
                 }
                 // onCreated - response for 201 / application/json
-                // (await response) // should be Microsoft.Graph.PowerShell.Security.Models.MicrosoftGraphAlert
+                // (await response) // should be Microsoft.Graph.PowerShell.Security.Models.MgAlert
                 WriteObject((await response));
             }
         }

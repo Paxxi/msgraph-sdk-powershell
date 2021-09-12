@@ -94,7 +94,7 @@ namespace Microsoft.Graph.PowerShell.Security.Models
         public string UserPrincipalName { get; set; }
 
         /// <summary>Backing field for <see cref="VendorInformation" /> property.</summary>
-        private MicrosoftGraphSecurityVendorInformation _vendorInformation;
+        private MgSecurityVendorInformation _vendorInformation;
 
         /// <summary>securityVendorInformation</summary>
         [Runtime.Info(
@@ -102,9 +102,9 @@ namespace Microsoft.Graph.PowerShell.Security.Models
         ReadOnly = false,
         Description = @"securityVendorInformation",
         SerializedName = @"vendorInformation",
-        PossibleTypes = new [] { typeof(MicrosoftGraphSecurityVendorInformation) })]
+        PossibleTypes = new [] { typeof(MgSecurityVendorInformation) })]
         [Origin(PropertyOrigin.Owned)]
-        public MicrosoftGraphSecurityVendorInformation VendorInformation { get => (this._vendorInformation = this._vendorInformation ?? new MicrosoftGraphSecurityVendorInformation()); set => this._vendorInformation = value; }
+        public MgSecurityVendorInformation VendorInformation { get => (this._vendorInformation = this._vendorInformation ?? new MgSecurityVendorInformation()); set => this._vendorInformation = value; }
 
         /// <summary>Creates an new <see cref="MicrosoftGraphUserSecurityProfile" /> instance.</summary>
         public MicrosoftGraphUserSecurityProfile()

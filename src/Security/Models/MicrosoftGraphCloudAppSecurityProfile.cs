@@ -9,14 +9,7 @@ namespace Microsoft.Graph.PowerShell.Security.Models
     /// <summary>cloudAppSecurityProfile</summary>
     public class MicrosoftGraphCloudAppSecurityProfile
     {
-        /// <summary>
-        ///     Backing field for Inherited model <see cref="Models.IMicrosoftGraphEntity" />
-        /// </summary>
-        private MicrosoftGraphEntity _microsoftGraphEntity = new MicrosoftGraphEntity();
-
-        private string _permissionsRequired;
-
-        private MicrosoftGraphSecurityVendorInformation _vendorInformation;
+        private MgSecurityVendorInformation _vendorInformation;
 
         /// <summary>Backing field for <see cref="AzureSubscriptionId" /> property.</summary>
         [Info(
@@ -70,11 +63,7 @@ namespace Microsoft.Graph.PowerShell.Security.Models
 
         /// <summary>Read-only.</summary>
         [Origin(PropertyOrigin.Inherited)]
-        public string Id
-        {
-            get => _microsoftGraphEntity.Id;
-            set => _microsoftGraphEntity.Id = value;
-        }
+        public string Id { get; set; }
 
         /// <summary>Backing field for <see cref="IsSigned" /> property.</summary>
         [Info(
@@ -124,11 +113,7 @@ namespace Microsoft.Graph.PowerShell.Security.Models
             SerializedName = @"permissionsRequired",
             PossibleTypes = new[] {typeof(string)})]
         [Origin(PropertyOrigin.Owned)]
-        public string PermissionsRequired
-        {
-            get => _permissionsRequired;
-            set => _permissionsRequired = value;
-        }
+        public string PermissionsRequired { get; set; }
 
         /// <summary>Backing field for <see cref="Platform" /> property.</summary>
         [Info(
@@ -196,11 +181,11 @@ namespace Microsoft.Graph.PowerShell.Security.Models
             ReadOnly = false,
             Description = @"securityVendorInformation",
             SerializedName = @"vendorInformation",
-            PossibleTypes = new[] {typeof(Models.MicrosoftGraphSecurityVendorInformation)})]
+            PossibleTypes = new[] {typeof(Models.MgSecurityVendorInformation)})]
         [Origin(PropertyOrigin.Owned)]
-        public MicrosoftGraphSecurityVendorInformation VendorInformation
+        public MgSecurityVendorInformation VendorInformation
         {
-            get => _vendorInformation = _vendorInformation ?? new MicrosoftGraphSecurityVendorInformation();
+            get => _vendorInformation = _vendorInformation ?? new MgSecurityVendorInformation();
             set => _vendorInformation = value;
         }
     }

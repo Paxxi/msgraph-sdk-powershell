@@ -31,14 +31,14 @@ namespace Microsoft.Graph.PowerShell
         /// <summary>Creates the module instance.</summary>
         private Module()
         {
-            Client = new Client();
+            GraphClient = new GraphClient();
             Handler.Proxy = WebProxy;
             _pipeline = new HttpPipeline(new HttpClientFactory(new HttpClient()));
             _pipelineWithProxy = new HttpPipeline(new HttpClientFactory(new HttpClient(Handler)));
         }
 
-        /// <summary>The instance of the Client API</summary>
-        public Client Client { get; set; }
+        /// <summary>The instance of the GraphClient API</summary>
+        public GraphClient GraphClient { get; set; }
 
         /// <summary>the singleton of this module class</summary>
         public static Module Instance => _instance ?? (_instance = new Module());

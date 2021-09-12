@@ -1,274 +1,10 @@
-<?xml version="1.0" encoding="utf-16"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Configuration>
   <ViewDefinitions>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.CollectionOfAlert</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgAlert</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.CollectionOfAlert</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableHeaders>
-          <TableColumnHeader>
-            <Label>OdataNextLink</Label>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>OdataNextLink</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>Microsoft.Graph.PowerShell.Models.CollectionOfCloudAppSecurityProfile</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.CollectionOfCloudAppSecurityProfile</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableHeaders>
-          <TableColumnHeader>
-            <Label>OdataNextLink</Label>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>OdataNextLink</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>Microsoft.Graph.PowerShell.Models.CollectionOfDomainSecurityProfile</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.CollectionOfDomainSecurityProfile</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableHeaders>
-          <TableColumnHeader>
-            <Label>OdataNextLink</Label>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>OdataNextLink</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>Microsoft.Graph.PowerShell.Models.CollectionOfFileSecurityProfile</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.CollectionOfFileSecurityProfile</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableHeaders>
-          <TableColumnHeader>
-            <Label>OdataNextLink</Label>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>OdataNextLink</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>Microsoft.Graph.PowerShell.Models.CollectionOfHostSecurityProfile</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.CollectionOfHostSecurityProfile</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableHeaders>
-          <TableColumnHeader>
-            <Label>OdataNextLink</Label>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>OdataNextLink</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>Microsoft.Graph.PowerShell.Models.CollectionOfIPSecurityProfile</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.CollectionOfIPSecurityProfile</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableHeaders>
-          <TableColumnHeader>
-            <Label>OdataNextLink</Label>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>OdataNextLink</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>Microsoft.Graph.PowerShell.Models.CollectionOfProviderTenantSetting</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.CollectionOfProviderTenantSetting</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableHeaders>
-          <TableColumnHeader>
-            <Label>OdataNextLink</Label>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>OdataNextLink</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>Microsoft.Graph.PowerShell.Models.CollectionOfSecureScore</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.CollectionOfSecureScore</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableHeaders>
-          <TableColumnHeader>
-            <Label>OdataNextLink</Label>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>OdataNextLink</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>Microsoft.Graph.PowerShell.Models.CollectionOfSecureScoreControlProfile</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.CollectionOfSecureScoreControlProfile</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableHeaders>
-          <TableColumnHeader>
-            <Label>OdataNextLink</Label>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>OdataNextLink</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>Microsoft.Graph.PowerShell.Models.CollectionOfSecurityAction</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.CollectionOfSecurityAction</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableHeaders>
-          <TableColumnHeader>
-            <Label>OdataNextLink</Label>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>OdataNextLink</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>Microsoft.Graph.PowerShell.Models.CollectionOfTiIndicator</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.CollectionOfTiIndicator</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableHeaders>
-          <TableColumnHeader>
-            <Label>OdataNextLink</Label>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>OdataNextLink</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>Microsoft.Graph.PowerShell.Models.CollectionOfUserSecurityProfile</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.CollectionOfUserSecurityProfile</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableHeaders>
-          <TableColumnHeader>
-            <Label>OdataNextLink</Label>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>OdataNextLink</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphAlert</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphAlert</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgAlert</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -420,9 +156,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphAlertDetection</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgAlertDetection</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphAlertDetection</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgAlertDetection</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -454,9 +190,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphAlertHistoryState</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgAlertHistoryState</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphAlertHistoryState</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgAlertHistoryState</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -512,9 +248,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphAlertTrigger</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgAlertTrigger</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphAlertTrigger</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgAlertTrigger</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -546,9 +282,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphAverageComparativeScore</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgAverageComparativeScore</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphAverageComparativeScore</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgAverageComparativeScore</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -574,9 +310,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphCertificationControl</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgCertificationControl</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphCertificationControl</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgCertificationControl</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -602,9 +338,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphCloudAppSecurityProfile</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgCloudAppSecurityProfile</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphCloudAppSecurityProfile</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgCloudAppSecurityProfile</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -720,9 +456,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphCloudAppSecurityState</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgCloudAppSecurityState</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphCloudAppSecurityState</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgCloudAppSecurityState</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -754,9 +490,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphComplianceInformation</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgComplianceInformation</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphComplianceInformation</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgComplianceInformation</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -776,9 +512,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphControlScore</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgControlScore</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphControlScore</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgControlScore</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -816,9 +552,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphDomainRegistrant</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgDomainRegistrant</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphDomainRegistrant</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgDomainRegistrant</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -856,9 +592,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphDomainSecurityProfile</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgDomainSecurityProfile</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphDomainSecurityProfile</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgDomainSecurityProfile</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -944,9 +680,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphEntity</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgEntity</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphEntity</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgEntity</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -966,9 +702,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphFileHash</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgFileHash</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphFileHash</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgFileHash</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -994,9 +730,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphFileSecurityProfile</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgFileSecurityProfile</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphFileSecurityProfile</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgFileSecurityProfile</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -1088,9 +824,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphFileSecurityState</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgFileSecurityState</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphFileSecurityState</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgFileSecurityState</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -1122,9 +858,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphHostSecurityProfile</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgHostSecurityProfile</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphHostSecurityProfile</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgHostSecurityProfile</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -1234,9 +970,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphHostSecurityState</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgHostSecurityState</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphHostSecurityState</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgHostSecurityState</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -1304,9 +1040,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphInvestigationSecurityState</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgInvestigationSecurityState</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphInvestigationSecurityState</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgInvestigationSecurityState</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -1332,9 +1068,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphIPCategory</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgIPCategory</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphIPCategory</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgIPCategory</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -1366,9 +1102,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphIPReferenceData</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgIPReferenceData</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphIPReferenceData</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgIPReferenceData</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -1418,9 +1154,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphIPSecurityProfile</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgIPSecurityProfile</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphIPSecurityProfile</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgIPSecurityProfile</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -1500,9 +1236,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphKeyValuePair</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgKeyValuePair</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphKeyValuePair</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgKeyValuePair</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -1528,9 +1264,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphLogonUser</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgLogonUser</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphLogonUser</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgLogonUser</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -1586,9 +1322,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphMalwareState</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgMalwareState</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphMalwareState</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgMalwareState</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -1632,9 +1368,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphMessageSecurityState</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgMessageSecurityState</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphMessageSecurityState</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgMessageSecurityState</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -1702,9 +1438,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphNetworkConnection</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgNetworkConnection</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphNetworkConnection</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgNetworkConnection</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -1838,9 +1574,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphNetworkInterface</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgNetworkInterface</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphNetworkInterface</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgNetworkInterface</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -1884,9 +1620,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphProcess</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgProcess</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphProcess</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgProcess</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -1966,9 +1702,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphProviderTenantSetting</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgProviderTenantSetting</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphProviderTenantSetting</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgProviderTenantSetting</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2018,9 +1754,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphRegistryKeyState</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgRegistryKeyState</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphRegistryKeyState</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgRegistryKeyState</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2094,9 +1830,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphReputationCategory</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgReputationCategory</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphReputationCategory</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgReputationCategory</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2128,9 +1864,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphResultInfo</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgResultInfo</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphResultInfo</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgResultInfo</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2162,9 +1898,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecureScore</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgSecureScore</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecureScore</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgSecureScore</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2226,9 +1962,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecureScoreControlProfile</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgSecureScoreControlProfile</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecureScoreControlProfile</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgSecureScoreControlProfile</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2344,9 +2080,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecureScoreControlStateUpdate</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgSecureScoreControlStateUpdate</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecureScoreControlStateUpdate</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgSecureScoreControlStateUpdate</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2390,9 +2126,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecurity</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgSecurity</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecurity</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgSecurity</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2412,9 +2148,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecurity1</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgSecurity1</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecurity1</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgSecurity1</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2434,9 +2170,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecurityAction</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgSecurityAction</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecurityAction</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgSecurityAction</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2516,9 +2252,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecurityActionState</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgSecurityActionState</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecurityActionState</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgSecurityActionState</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2556,9 +2292,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecurityProviderStatus</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgSecurityProviderStatus</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecurityProviderStatus</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgSecurityProviderStatus</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2602,9 +2338,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecurityResource</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgSecurityResource</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecurityResource</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgSecurityResource</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2630,9 +2366,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecurityVendorInformation</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgSecurityVendorInformation</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphSecurityVendorInformation</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgSecurityVendorInformation</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2670,9 +2406,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphTiIndicator</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgTiIndicator</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphTiIndicator</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgTiIndicator</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -3040,9 +2776,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphUriClickSecurityState</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgUriClickSecurityState</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphUriClickSecurityState</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgUriClickSecurityState</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -3092,9 +2828,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphUserAccount</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgUserAccount</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphUserAccount</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgUserAccount</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -3144,9 +2880,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphUserSecurityProfile</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgUserSecurityProfile</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphUserSecurityProfile</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgUserSecurityProfile</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -3214,9 +2950,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphUserSecurityState</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgUserSecurityState</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphUserSecurityState</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgUserSecurityState</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -3314,9 +3050,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>Microsoft.Graph.PowerShell.Models.MicrosoftGraphVulnerabilityState</Name>
+      <Name>Microsoft.Graph.PowerShell.Security.Models.MgVulnerabilityState</Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.MicrosoftGraphVulnerabilityState</TypeName>
+        <TypeName>Microsoft.Graph.PowerShell.Security.Models.MgVulnerabilityState</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -3409,50 +3145,6 @@
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Target</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>Microsoft.Graph.PowerShell.Models.Paths1Jddi17SecurityTiindicatorsMicrosoftGraphDeletetiindicatorsbyexternalidPostRequestbodyContentApplicationJsonSchema</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.Paths1Jddi17SecurityTiindicatorsMicrosoftGraphDeletetiindicatorsbyexternalidPostRequestbodyContentApplicationJsonSchema</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableHeaders>
-          <TableColumnHeader>
-            <Label>Value</Label>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>Value</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>Microsoft.Graph.PowerShell.Models.Paths9Mf33ASecurityTiindicatorsMicrosoftGraphDeletetiindicatorsPostRequestbodyContentApplicationJsonSchema</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Graph.PowerShell.Models.Paths9Mf33ASecurityTiindicatorsMicrosoftGraphDeletetiindicatorsPostRequestbodyContentApplicationJsonSchema</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableHeaders>
-          <TableColumnHeader>
-            <Label>Value</Label>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>Value</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

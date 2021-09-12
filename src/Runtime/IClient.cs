@@ -10,7 +10,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
         Task Get<T>(string url,
             string[] select, string[] expand,
             Func<HttpResponseMessage,
-                    Task<ODataResponse<T>>,
+                    Task<T>,
                     Task>
                 onOk,
             Func<HttpResponseMessage,
@@ -22,7 +22,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
             string objectId,
             string[] select, string[] expand,
             Func<HttpResponseMessage,
-                    Task<ODataResponse<T>>,
+                    Task<T>,
                     Task>
                 onOk,
             Func<HttpResponseMessage,
@@ -37,7 +37,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
         /// <param name="search">Search items by search phrases</param>
         /// <param name="filter">Filter items by property values</param>
         /// <param name="count">Include count of items</param>
-        /// <param name="orderby">Order items by property values</param>
+        /// <param name="orderBy">Order items by property values</param>
         /// <param name="select">Select properties to be returned</param>
         /// <param name="expand">expand related entities</param>
         /// <param name="onOk">a delegate that is called when the remote service returns 200 (OK).</param>
@@ -58,7 +58,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
         ///     completed.
         /// </returns>
         Task List<T>(string url, int? top, int? skip, string search,
-            string filter, bool? count, string[] orderby, string[] select, string[] expand,
+            string filter, bool? count, string[] orderBy, string[] select, string[] expand,
             Func<HttpResponseMessage,
                 Task<ODataCollection<T>>,
                 Task> onOk,

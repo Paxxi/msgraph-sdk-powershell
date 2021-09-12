@@ -3,6 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -21,16 +22,22 @@ namespace Microsoft.Graph.PowerShell.Runtime
 
         public static async Task<ODataCollection<T>> ReadCollectionAsync<T>(this HttpContent content)
         {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<ODataCollection<T>>(await content.ReadAsStringAsync());
+            var result = await content.ReadAsStringAsync();
+            Debug.WriteLine($"Result: {result}");
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ODataCollection<T>>(result);
         }
-        public static async Task<ODataResponse<T>> ReadAsync<T>(this HttpContent content)
+        public static async Task<T> ReadAsync<T>(this HttpContent content)
         {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<ODataResponse<T>>(await content.ReadAsStringAsync());
+            var result = await content.ReadAsStringAsync();
+            Debug.WriteLine($"Result: {result}");
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(result);
         }
 
         public static async Task<OdataError> ReadErrorAsync(this HttpContent content)
         {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<OdataError>(await content.ReadAsStringAsync());
+            var result = await content.ReadAsStringAsync();
+            Debug.WriteLine($"Result: {result}");
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<OdataError>(result);
         }
 
         public static bool If<T>(T input, out T output)

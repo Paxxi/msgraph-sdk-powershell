@@ -113,15 +113,6 @@ namespace Microsoft.Graph.PowerShell.Cmdlets
         private string _secureScoreId;
 
         /// <summary>key: id of secureScore</summary>
-        [global::System.Management.Automation.Parameter(Mandatory = true, HelpMessage = "key: id of secureScore")]
-        [Microsoft.Graph.PowerShell.Runtime.Info(
-        Required = true,
-        ReadOnly = false,
-        Description = @"key: id of secureScore",
-        SerializedName = @"secureScore-id",
-        PossibleTypes = new [] { typeof(string) })]
-        [global::Microsoft.Graph.PowerShell.Category(global::Microsoft.Graph.PowerShell.ParameterCategory.Path)]
-        public string SecureScoreId { get => this._secureScoreId; set => this._secureScoreId = value; }
 
         /// <summary>
         /// <c>overrideOnDefault</c> will be called before the regular onDefault has been processed, allowing customization of what

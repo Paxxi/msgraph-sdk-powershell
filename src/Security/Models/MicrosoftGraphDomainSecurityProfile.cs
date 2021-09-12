@@ -18,7 +18,7 @@ namespace Microsoft.Graph.PowerShell.Security.Models
         private MicrosoftGraphDomainRegistrant _registrant;
 
         /// <summary>Backing field for <see cref="VendorInformation" /> property.</summary>
-        private MicrosoftGraphSecurityVendorInformation _vendorInformation;
+        private MgSecurityVendorInformation _vendorInformation;
 
         /// <summary>Backing field for <see cref="ActivityGroupNames" /> property.</summary>
         [Info(
@@ -168,11 +168,11 @@ namespace Microsoft.Graph.PowerShell.Security.Models
             ReadOnly = false,
             Description = @"securityVendorInformation",
             SerializedName = @"vendorInformation",
-            PossibleTypes = new[] {typeof(Models.MicrosoftGraphSecurityVendorInformation)})]
+            PossibleTypes = new[] {typeof(Models.MgSecurityVendorInformation)})]
         [Origin(PropertyOrigin.Owned)]
-        public MicrosoftGraphSecurityVendorInformation VendorInformation
+        public MgSecurityVendorInformation VendorInformation
         {
-            get => _vendorInformation = _vendorInformation ?? new MicrosoftGraphSecurityVendorInformation();
+            get => _vendorInformation = _vendorInformation ?? new MgSecurityVendorInformation();
             set => _vendorInformation = value;
         }
     }

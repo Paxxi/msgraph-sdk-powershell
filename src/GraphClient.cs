@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -20,9 +21,9 @@ namespace Microsoft.Graph.PowerShell
     /// <summary>
     ///     Low-level API implementation for the Security service.
     /// </summary>
-    public class Client : IClient
+    public class GraphClient : IClient
     {
-        private static JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
+        private static readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
             NullValueHandling = NullValueHandling.Ignore,
@@ -30,7 +31,7 @@ namespace Microsoft.Graph.PowerShell
         public async Task Get<T>(string url,
             string[] select, string[] expand,
             Func<HttpResponseMessage,
-                    Task<ODataResponse<T>>,
+                    Task<T>,
                     Task>
                 onOk,
             Func<HttpResponseMessage,
@@ -47,18 +48,19 @@ namespace Microsoft.Graph.PowerShell
 
                 if (null != select && select.Length > 0)
                 {
-                    queryParameters.Add("Select=" + Uri.EscapeDataString(string.Join(",", select)));
+                    queryParameters.Add("$select=" + Uri.EscapeDataString(string.Join(",", select)));
                 }
 
                 if (null != expand && expand.Length > 0)
                 {
-                    queryParameters.Add("expand=" + Uri.EscapeDataString(string.Join(",", expand)));
+                    queryParameters.Add("$expand=" + Uri.EscapeDataString(string.Join(",", expand)));
                 }
 
                 if (queryParameters.Count > 0)
                     builder.Query = string.Join("&", queryParameters);
 
                 var uri = builder.Uri;
+                Debug.WriteLine($"Url: {uri}");
 
                 await eventListener.Signal(Events.URLCreated, uri);
                 if (eventListener.Token.IsCancellationRequested) return;
@@ -120,7 +122,7 @@ namespace Microsoft.Graph.PowerShell
             string objectId,
             string[] select, string[] expand,
             Func<HttpResponseMessage,
-                    Task<ODataResponse<T>>,
+                    Task<T>,
                     Task>
                 onOk,
             Func<HttpResponseMessage,
@@ -151,6 +153,7 @@ namespace Microsoft.Graph.PowerShell
                     builder.Query = string.Join("&", queryParameters);
 
                 var uri = builder.Uri;
+                Debug.WriteLine($"Url: {uri}");
 
                 await eventListener.Signal(Events.URLCreated, uri);
                 if (eventListener.Token.IsCancellationRequested) return;
@@ -217,7 +220,7 @@ namespace Microsoft.Graph.PowerShell
         /// <param name="search">Search items by search phrases</param>
         /// <param name="filter">Filter items by property values</param>
         /// <param name="count">Include count of items</param>
-        /// <param name="orderby">Order items by property values</param>
+        /// <param name="orderBy">Order items by property values</param>
         /// <param name="select">Select properties to be returned</param>
         /// <param name="expand">expand related entities</param>
         /// <param name="onOk">a delegate that is called when the remote service returns 200 (OK).</param>
@@ -238,7 +241,7 @@ namespace Microsoft.Graph.PowerShell
         ///     completed.
         /// </returns>
         public async Task List<T>(string url, int? top, int? skip, string search,
-        string filter, bool? count, string[] orderby, string[] select, string[] expand,
+        string filter, bool? count, string[] orderBy, string[] select, string[] expand,
         Func<HttpResponseMessage,
             Task<ODataCollection<T>>,
             Task> onOk,
@@ -253,7 +256,7 @@ namespace Microsoft.Graph.PowerShell
             // construct URL
             var queryParameters = new List<string>();
             var builder = new UriBuilder(url);
-            if (top.HasValue)
+            if (top > 0)
                queryParameters.Add("$top=" + Uri.EscapeDataString(top.ToString())); 
             if (skip.HasValue)
                 queryParameters.Add("$skip=" + Uri.EscapeDataString(skip.ToString()));
@@ -261,8 +264,8 @@ namespace Microsoft.Graph.PowerShell
                 queryParameters.Add("$filter=" + Uri.EscapeDataString(filter));
             if (count.HasValue)
                 queryParameters.Add("$count=" + count.Value.ToString().ToLower());
-            if (orderby != null && orderby.Length > 0)
-                queryParameters.Add("$order=" + Uri.EscapeDataString(string.Join(",", orderby)));
+            if (orderBy != null && orderBy.Length > 0)
+                queryParameters.Add("$order=" + Uri.EscapeDataString(string.Join(",", orderBy)));
             if (select != null && select.Length > 0)
                 queryParameters.Add("$select=" + Uri.EscapeDataString(string.Join(",", select)));
             if (expand != null && expand.Length > 0)
@@ -412,7 +415,9 @@ namespace Microsoft.Graph.PowerShell
                 if (eventListener.Token.IsCancellationRequested) return;
 
                 // set body content
-                request.Content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(body, _serializerSettings));
+                var content = Newtonsoft.Json.JsonConvert.SerializeObject(body, _serializerSettings);
+                Debug.WriteLine($"Request body: {content}");
+                request.Content = new StringContent(content);
                 request.Content.Headers.ContentType =
                     MediaTypeHeaderValue.Parse("application/json");
                 await eventListener.Signal(Events.BodyContentSet, uri);
@@ -445,7 +450,7 @@ namespace Microsoft.Graph.PowerShell
         internal async Task CreateCall<T>(
             HttpRequestMessage request,
             Func<HttpResponseMessage,
-                    Task<ODataResponse<T>>,
+                    Task<T>,
                     Task>
                 onCreated,
             Func<HttpResponseMessage,

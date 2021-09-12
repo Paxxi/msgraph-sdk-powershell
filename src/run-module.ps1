@@ -26,12 +26,7 @@ if($isAzure) {
   . (Join-Path $PSScriptRoot 'check-dependencies.ps1') -Isolated -Accounts
 }
 
-$localModulesPath = Join-Path $PSScriptRoot 'generated\modules'
-if(Test-Path -Path $localModulesPath) {
-  $env:PSModulePath = "$localModulesPath$([IO.Path]::PathSeparator)$env:PSModulePath"
-}
-
-$modulePsd1 = Get-Item -Path (Join-Path $PSScriptRoot './Microsoft.Graph.Security.psd1')
+$modulePsd1 = Get-Item -Path (Join-Path $PSScriptRoot './bin/Unofficial.Microsoft.Graph.psd1')
 $modulePath = $modulePsd1.FullName
 $moduleName = $modulePsd1.BaseName
 

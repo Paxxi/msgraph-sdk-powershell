@@ -8,17 +8,12 @@ namespace Microsoft.Graph.PowerShell.Security.Models
 {
 
     /// <summary>alert</summary>
-    public class MicrosoftGraphAlert
+    public class MgAlert
     {
-        /// <summary>
-        ///     Backing field for Inherited model <see cref="MicrosoftGraphEntity" />
-        /// </summary>
-        private MicrosoftGraphEntity _microsoftGraphEntity = new MicrosoftGraphEntity();
-
         /// <summary>Backing field for <see cref="Triggers" /> property.</summary>
         private MicrosoftGraphAlertTrigger[] _triggers;
 
-        private MicrosoftGraphSecurityVendorInformation _vendorInformation;
+        private MgSecurityVendorInformation _vendorInformation;
 
         /// <summary>Name or alias of the activity group (attacker) this alert is attributed to.</summary>
         [Info(
@@ -240,12 +235,7 @@ namespace Microsoft.Graph.PowerShell.Security.Models
         public MicrosoftGraphHostSecurityState[] HostStates { get; set; }
 
         /// <summary>Read-only.</summary>
-        [Origin(PropertyOrigin.Inherited)]
-        public string Id
-        {
-            get => _microsoftGraphEntity.Id;
-            set => _microsoftGraphEntity.Id = value;
-        }
+        public string Id { get; set; }
 
         /// <summary>IDs of incidents related to current alert.</summary>
         [Info(
@@ -491,11 +481,11 @@ namespace Microsoft.Graph.PowerShell.Security.Models
             ReadOnly = false,
             Description = @"securityVendorInformation",
             SerializedName = @"vendorInformation",
-            PossibleTypes = new[] {typeof(MicrosoftGraphSecurityVendorInformation)})]
+            PossibleTypes = new[] {typeof(MgSecurityVendorInformation)})]
         [Origin(PropertyOrigin.Owned)]
-        public MicrosoftGraphSecurityVendorInformation VendorInformation
+        public MgSecurityVendorInformation VendorInformation
         {
-            get => _vendorInformation = _vendorInformation ?? new MicrosoftGraphSecurityVendorInformation();
+            get => _vendorInformation = _vendorInformation ?? new MgSecurityVendorInformation();
             set => _vendorInformation = value;
         }
 

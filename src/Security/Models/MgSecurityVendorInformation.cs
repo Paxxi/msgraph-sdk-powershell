@@ -4,7 +4,7 @@
 namespace Microsoft.Graph.PowerShell.Security.Models
 {
     /// <summary>securityVendorInformation</summary>
-    public partial class MicrosoftGraphSecurityVendorInformation
+    public class MgSecurityVendorInformation
     {
 
         /// <summary>
@@ -52,11 +52,5 @@ namespace Microsoft.Graph.PowerShell.Security.Models
         PossibleTypes = new [] { typeof(string) })]
         [Origin(PropertyOrigin.Owned)]
         public string Vendor { get; set; }
-
-        /// <summary>Creates an new <see cref="MicrosoftGraphSecurityVendorInformation" /> instance.</summary>
-        public MicrosoftGraphSecurityVendorInformation()
-        {
-
-        }
     }
 }

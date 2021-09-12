@@ -14,7 +14,7 @@ namespace Microsoft.Graph.PowerShell.Security.Models
         /// </summary>
         private readonly MicrosoftGraphEntity __microsoftGraphEntity = new MicrosoftGraphEntity();
 
-        private MicrosoftGraphSecurityVendorInformation _vendorInformation;
+        private MgSecurityVendorInformation _vendorInformation;
 
         [Info(
             Required = false,
@@ -183,11 +183,11 @@ namespace Microsoft.Graph.PowerShell.Security.Models
             ReadOnly = false,
             Description = @"securityVendorInformation",
             SerializedName = @"vendorInformation",
-            PossibleTypes = new[] {typeof(Models.MicrosoftGraphSecurityVendorInformation)})]
+            PossibleTypes = new[] {typeof(Models.MgSecurityVendorInformation)})]
         [Origin(PropertyOrigin.Owned)]
-        public MicrosoftGraphSecurityVendorInformation VendorInformation
+        public MgSecurityVendorInformation VendorInformation
         {
-            get => _vendorInformation = _vendorInformation ?? new MicrosoftGraphSecurityVendorInformation();
+            get => _vendorInformation = _vendorInformation ?? new MgSecurityVendorInformation();
             set => _vendorInformation = value;
         }
     }

@@ -78,7 +78,7 @@ CmdletsToExport = 'Connect-MgGraph', 'Disconnect-MgGraph', 'Get-MgContext',
                'Get-MgProfile', 'Select-MgProfile', 'Invoke-MgGraphRequest',
                'Add-MgEnvironment', 'Get-MgEnvironment', 'Remove-MgEnvironment',
                'Set-MgEnvironment', 'Get-MgSecurityAction', 'Get-MgSecurityAlert',
-               'New-MgSecurityAction'
+               'New-MgSecurityAction', 'Get-MgSecuritySecureScore'
 
 # Variables to export from this module
 # VariablesToExport = @()
