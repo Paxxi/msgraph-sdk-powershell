@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.Graph.Security</id>
+    <version>1.7.0-preview1</version>
+    <authors>Microsoft Corporation</authors>
+    <owners>Microsoft Corporation</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://aka.ms/devservicesagreement</licenseUrl>
+    <projectUrl>https://github.com/microsoftgraph/msgraph-sdk-powershell</projectUrl>
+    <description>Microsoft Graph PowerShell Cmdlets</description>
+    <releaseNotes>See https://aka.ms/GraphPowerShell-Release.</releaseNotes>
+    <copyright>Microsoft Corporation. All rights reserved.</copyright>
+    <tags>Microsoft Office365 Graph PowerShell</tags>
+    <dependencies>
+      <dependency id="Microsoft.Graph.Authentication" version="1.6.0" />
+    </dependencies>
+    <iconUrl>https://raw.githubusercontent.com/microsoftgraph/msgraph-sdk-powershell/master/documentation/images/graph_color256.png</iconUrl>
+  </metadata>
+  <files>
+    <file src="Microsoft.Graph.Security.format.ps1xml" />
+    <file src="Microsoft.Graph.Security.psd1" />
+    <file src="Microsoft.Graph.Security.psm1" />
+    <!-- https://github.com/NuGet/Home/issues/3584 -->
+    <file src="bin/Microsoft.Graph.Security.private.dll" target="bin" />
+    <file src="bin\Microsoft.Graph.Security.private.deps.json" target="bin" />
+    <file src="internal\**\*.*" exclude="internal\readme.md" target="internal" />
+    <file src="custom\**\*.*" exclude="custom\readme.md;custom\**\*.cs" target="custom" />
+    <file src="exports\**\ProxyCmdletDefinitions.ps1" target="exports" />
+  </files>
+</package>
