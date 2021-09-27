@@ -2,53 +2,52 @@
 
 > Common
 
-``` yaml
+```yaml
 azure: false
 powershell: true
 version: latest
-use: "./assets/autorest-powershell-2.1.402.tgz"
+use: "file:///c:/code/autorest/packages/extensions/powershell/"
 metadata:
-    authors: Microsoft Corporation
-    owners: Microsoft Corporation
-    companyName: Microsoft Corporation
-    description: 'Microsoft Graph PowerShell Cmdlets'
-    copyright: &copy; Microsoft Corporation. All rights reserved.
-    tags: Microsoft Office365 Graph PowerShell
-    requireLicenseAcceptance: true
-    licenseUri: https://aka.ms/devservicesagreement
-    projectUri: https://github.com/microsoftgraph/msgraph-sdk-powershell
-    iconUri: https://raw.githubusercontent.com/microsoftgraph/g-raph/master/g-raph.png
+  authors: Microsoft Corporation
+  owners: Microsoft Corporation
+  companyName: Microsoft Corporation
+  description: "Microsoft Graph PowerShell Cmdlets"
+  copyright: &copy; Microsoft Corporation. All rights reserved.
+  tags: Microsoft Office365 Graph PowerShell
+  requireLicenseAcceptance: true
+  licenseUri: https://aka.ms/devservicesagreement
+  projectUri: https://github.com/microsoftgraph/msgraph-sdk-powershell
+  iconUri: https://raw.githubusercontent.com/microsoftgraph/g-raph/master/g-raph.png
 ```
 
 > Names
 
-``` yaml
+```yaml
 prefix: Mg
 module-name: Microsoft.Graph.$(service-name)
 subject-prefix: $(service-name)
-namespace: Microsoft.Graph.PowerShell
+namespace: Microsoft.Graph.PowerShell.$(service-name)
 sanitize-names: false
 ```
 
 > Folders
 
-``` yaml
+```yaml
 clear-output-folder: true
 output-folder: .
 ```
 
 > Profiles
 
-``` yaml
+```yaml
 tag: all-api-versions
 profile:
-  - v1.0
   - v1.0-beta
 ```
 
 > Custom Directives
 
-``` yaml
+```yaml
 declare-directive:
   where-operation-byRegex: >-
     (() => {
@@ -64,32 +63,52 @@ declare-directive:
 
 > Directives
 
-``` yaml
+```yaml
 directive:
   - no-inline:
-    - microsoft.graph.sharepointIds
-    - microsoft.graph.identitySet
-    - microsoft.graph.itemReference
-    - microsoft.graph.directoryObject
-    - microsoft.graph.user
-    - microsoft.graph.drive
-    - microsoft.graph.listItem
-    - microsoft.graph.post
-    - microsoft.graph.sectionGroup
-    - microsoft.graph.team
-    - microsoft.graph.recipient
-    - microsoft.graph.groupPolicyCategory
-    - microsoft.graph.printer
-    - microsoft.graph.printerShare
-    - microsoft.graph.governanceResource
-    - microsoft.graph.governanceRoleAssignment
-    - microsoft.graph.governanceRoleDefinition
-    - microsoft.graph.workbookOperationError
-    - microsoft.graph.parentLabelDetails
-    - microsoft.graph.ediscovery.tag
-    - microsoft.graph.ediscovery.sourceCollection
-    - microsoft.graph.contentType
-    - microsoft.graph.columnDefinition
+      - microsoft.graph.sharepointIds
+      - microsoft.graph.identitySet
+      - microsoft.graph.itemReference
+      - microsoft.graph.directoryObject
+      - microsoft.graph.user
+      - microsoft.graph.drive
+      - microsoft.graph.listItem
+      - microsoft.graph.post
+      - microsoft.graph.sectionGroup
+      - microsoft.graph.team
+      - microsoft.graph.recipient
+      - microsoft.graph.groupPolicyCategory
+      - microsoft.graph.printer
+      - microsoft.graph.printerShare
+      - microsoft.graph.governanceResource
+      - microsoft.graph.governanceRoleAssignment
+      - microsoft.graph.governanceRoleDefinition
+      - microsoft.graph.workbookOperationError
+      - microsoft.graph.parentLabelDetails
+      - microsoft.graph.ediscovery.tag
+      - microsoft.graph.ediscovery.sourceCollection
+      - microsoft.graph.contentType
+      - microsoft.graph.columnDefinition
+      - MgSectionGroup
+      - MgContentType
+      - MgColumnDefinition
+      - MgWorkbookOperationError
+      - MgTeam
+      - MgPost
+      - MgParentLabelDetails
+      - MgUser
+      - MgDrive
+      - MgListItem
+      - MgSectionGroup
+      - MgContentType
+      - MgColumnDefinition
+      - MgWorkbookOperationError
+      - MgTeam
+      - MgPost
+      - MgParentLabelDetails
+      - MgUser
+      - MgDrive
+      - MgListItem
 
   # Set parameter alias
   - where:
@@ -392,7 +411,7 @@ directive:
           - Body
           - DueDateTime
           - Importance
-# Rename cmdlets
+  # Rename cmdlets
   - where:
       verb: Invoke
       subject: (^Delta)(.*)
@@ -404,17 +423,17 @@ directive:
       variant: ^(Check|Verify)(.*)
     set:
       verb: Confirm
-# Rename all /$ref cmdlets to *ByRef e.g. New-MgGroupOwnerByRef
+  # Rename all /$ref cmdlets to *ByRef e.g. New-MgGroupOwnerByRef
   - where:
       subject: ^(\w*[a-z])Ref([A-Z]\w*)$
     set:
       subject: $1$2ByRef
-# Remove *ByRef commands
+  # Remove *ByRef commands
   - where:
       verb: Get|Remove|New
       subject: ^UserPlanner(FavoritePlanByRef|RecentPlanByRef|RosterPlanByRef)$
     remove: true
-# Rename *ByRef commands
+  # Rename *ByRef commands
   - where:
       verb: Get|New
       subject: ^GroupMemberByRef$
@@ -433,7 +452,7 @@ directive:
       variant: ^List$|^List2$
     set:
       subject: GroupTransitiveMemberOfByRef
-# Alias then rename cmdlets to avoid breaking change.
+  # Alias then rename cmdlets to avoid breaking change.
   - where:
       subject: ^(User|ServicePrincipal|Contact|Device)(Member|TransitiveMember)ByRef$
     set:
@@ -450,126 +469,7 @@ directive:
       subject: ^(Application|Group)(CreatedOnBehalf)ByRef$
     set:
       subject: $1$2OfByRef
-# Modify generated .json.cs model classes.
-  - from: source-file-csharp
-    where: $
-    transform: >
-      if (!$documentPath.match(/generated%5Capi%5CModels%5C\w*MicrosoftGraph\w*\d*.json.cs/gm))
-      {
-        return $;
-      } else {
-        // Add AfterToJson
-        let afterJsonDeclarationRegex = /(^\s*)(partial\s*void\s*AfterFromJson\s*\(Microsoft.Graph.PowerShell.Runtime.Json.JsonObject\s*json\s*\);$)/gm
-        $ = $.replace(afterJsonDeclarationRegex, '$1$2\n$1partial void AfterToJson(ref Microsoft.Graph.PowerShell.Runtime.Json.JsonObject container, Microsoft.Graph.PowerShell.Runtime.SerializationMode serializationMode);\n');
-        let afterJsonRegex = /(^\s*)(AfterToJson\(ref\s*container\s*\);$)/gm
-        $ = $.replace(afterJsonRegex, '$1$2\n$1AfterToJson(ref container, serializationMode);\n');
-
-        // Pass exclusion properties to base classes during serialization.
-        let baseClassInitializerRegex = /(new\s*Microsoft.Graph.PowerShell.Models.MicrosoftGraph\w*\(\s*json\s*,\s*new\s*global::System.Collections.Generic.HashSet<string>\()(\){\W.*}\);)/gm
-        $ = $.replace(baseClassInitializerRegex, '$1(exclusions ?? new System.Collections.Generic.HashSet<string>())$2');
-
-        // Fix additional properties deserialization in Complex Types.
-        let complexTypeHintRegex = /(\s*)(Microsoft\.Graph\.PowerShell\.Runtime\.JsonSerializable\.FromJson)/gm
-        if($.match(complexTypeHintRegex)) {
-          let classNameRegex = /partial\s*class\s*(\w*)\s*{/gm
-          let match = classNameRegex.exec($);
-          let interfaceName = "I" + match[1] + "Internal";
-
-          let getExclusionsDynamically = '\n$1if (exclusions == null) { exclusions = new System.Collections.Generic.HashSet<string>(global::System.StringComparer.OrdinalIgnoreCase); var properties = typeof('+interfaceName+').GetProperties(); foreach (var property in properties) { exclusions.Add(property.Name);}}'
-          $ = $.replace(complexTypeHintRegex, getExclusionsDynamically + '\n$1$2');
-        }
-
-        return $;
-      }
-# Modify generated .dictionary.cs model classes.
-  - from: source-file-csharp
-    where: $
-    transform: >
-      if (!$documentPath.match(/generated%5Capi%5CModels%5C\w*\d*.dictionary.cs/gm))
-      {
-        return $;
-      } else {
-        // Remove Count, Keys, and Values properties from implementations of an IAssociativeArray in models.
-        let propertiesToRemoveRegex = /^.*Microsoft\.Graph\.PowerShell\.Runtime\.IAssociativeArray<global::System\.Object>\.(Count|Keys|Values).*$/gm
-        $ = $.replace(propertiesToRemoveRegex, '');
-
-        return $;
-      }
-# Modify generated .cs model classes.
-  - from: source-file-csharp
-    where: $
-    transform: >
-      if (!$documentPath.match(/generated%5Capi%5CModels%5C\w*MicrosoftGraph\w*\d*.cs/gm))
-      {
-        return $;
-      } else {
-        // Add new modifier to 'additionalProperties' properties of classes that implement IAssociativeArray. See example https://regex101.com/r/hnX7xO/2.
-        let additionalPropertiesRegex = /(SerializedName\s*=\s*@"additionalProperties".*\s*.*)(\s*)(.*AdditionalProperties\s*{\s*get;\s*set;\s*})/gmi
-        if($.match(additionalPropertiesRegex)) {
-          $ = $.replace(additionalPropertiesRegex, '$1$2 new $3');
-        }
-
-        return $;
-      }
-# Modify generated .cs cmdlets.
-  - from: source-file-csharp
-    where: $
-    transform: >
-      if (!$documentPath.match(/generated%2Fcmdlets%2F\w*\d*.cs/gm))
-      {
-        return $;
-      } else {
-        // Initialize AdditionalProperties prop to a new Hashtable by default.
-        let additionalPropertiesPropRegex = /System.Collections.Hashtable\s*AdditionalProperties\s*{\s*get;\s*set;\s*}$/gmi
-        let newAdditionalPropertiesProp = "System.Collections.Hashtable AdditionalProperties { get; set; } = new System.Collections.Hashtable();"
-        $ = $.replace(additionalPropertiesPropRegex, newAdditionalPropertiesProp);
-
-        // Override OnDefault to handle all success, 2xx responses, as success and not error.
-        let overrideOnDefaultRegex = /(\s*)(partial\s*void\s*overrideOnDefault)/gmi
-        let overrideOnDefaultImplementation = "$1partial void overrideOnDefault(global::System.Net.Http.HttpResponseMessage responseMessage, global::System.Threading.Tasks.Task<Microsoft.Graph.PowerShell.Models.IOdataError> response, ref global::System.Threading.Tasks.Task<bool> returnNow) => this.OverrideOnDefault(responseMessage,ref returnNow);$1$2"
-        $ = $.replace(overrideOnDefaultRegex, overrideOnDefaultImplementation);
-
-        return $;
-      }
-
-# Modify generated .cs list cmdlets.
-  - from: source-file-csharp
-    where: $
-    transform: >
-      if (!$documentPath.match(/generated%2Fcmdlets%2FGet\w*_List\d*.cs/gm))
-      {
-        return $;
-      } else {
-        let odataNextLinkRegex = /(^\s*)(if\s*\(\s*result.OdataNextLink\s*!=\s*null\s*\))/gmi
-        if($.match(odataNextLinkRegex)) {
-          // Add custom -PageSize parameter to *_List cmdlets that support Odata next link.
-          $ = $.replace(odataNextLinkRegex, '$1if (result.OdataNextLink != null && this.ShouldIteratePages(this.InvocationInformation.BoundParameters, result.Value.Length))\n$1');
-
-          let psBaseClassImplementationRegex = /(\s*:\s*)(global::System.Management.Automation.PSCmdlet)/gmi
-          $ = $.replace(psBaseClassImplementationRegex, '$1Microsoft.Graph.PowerShell.Cmdlets.Custom.ListCmdlet');
-
-          let beginProcessingRegex = /(^\s*)(protected\s*override\s*void\s*BeginProcessing\(\)\s*{)/gmi
-          $ = $.replace(beginProcessingRegex, '$1$2\n$1  if (this.InvocationInformation?.BoundParameters != null){ InitializeCmdlet(ref this.__invocationInfo, ref this._top, ref this._count); }\n$1');
-
-          let odataNextLinkCallRegex = /(^\s*)(await\s*this\.Client\.UsersUserListUser_Call\(requestMessage\,\s*onOk\,\s*onDefault\,\s*this\,\s*Pipeline\)\;)/gmi
-          $ = $.replace(odataNextLinkCallRegex, '$1requestMessage.RequestUri = GetOverflowItemsNextLinkUri(requestMessage.RequestUri);\n$1$2');
-
-          // Set -Count parameter to private. This will be replaced by -CountVariable
-          let countParameterRegex = /public(\s*global::System\.Management\.Automation\.SwitchParameter\s*Count\s*)/gm
-          $ = $.replace(countParameterRegex, 'private$1');
-
-          // Call OnBeforeWriteObject to deserialize '@odata.count' from the response object.
-          let writeObjectRegex = /^(\s*)(WriteObject\(result\.Value,true\);)$/gm
-          $ = $.replace(writeObjectRegex,'\n$1OnBeforeWriteObject(this.InvocationInformation.BoundParameters, result?.AdditionalProperties);\n$1$2');
-
-          // Format all Search values by adding quotes around them.
-          let searchQueryRegex = /this\.InvocationInformation\.BoundParameters\.ContainsKey\("Search"\)\s*\?\s*Search\s*:\s*null/gm
-          $ = $.replace(searchQueryRegex, 'this.FormatSearchValue(this.InvocationInformation.BoundParameters, Search)');
-        }
-        return $;
-      }
-
-# Modify generated .cs file download cmdlets.
+  # Modify generated .cs file download cmdlets.
   - from: source-file-csharp
     where: $
     transform: >
@@ -587,7 +487,7 @@ directive:
         return $;
       }
 
-# Modify generated .cs file upload cmdlets.
+  # Modify generated .cs file upload cmdlets.
   - from: source-file-csharp
     where: $
     transform: >
@@ -612,61 +512,7 @@ directive:
         return $;
       }
 
-# Modify generated runtime TypeConverterExtensions class.
-  - from: source-file-csharp
-    where: $
-    transform: >
-      if (!$documentPath.match(/generated%5Cruntime%5CTypeConverterExtensions.cs/gm))
-      {
-        return $;
-      } else {
-        // Use a case-insensitive contains search.
-        let keyValueContainsRegex = /(exclusions|inclusions)(\?.Contains\(key\?.ToString\(\))(\)\))/gm
-        $ = $.replace(keyValueContainsRegex, '$1$2, System.StringComparer.OrdinalIgnoreCase$3');
-
-        let propertyContainsRegex = /(exclusions|inclusions)(\?.Contains\(property.Name)(\)\))/gm
-        $ = $.replace(propertyContainsRegex, '$1$2, System.StringComparer.OrdinalIgnoreCase$3');
-        return $;
-      }
-
-# Modify generated runtime IJsonSerializable interface.
-  - from: source-file-csharp
-    where: $
-    transform: >
-      if (!$documentPath.match(/generated%5Cruntime%5CCustomizations%5CIJsonSerializable.cs/gm))
-      {
-        return $;
-      } else {
-        // Changes excludes hashset to a case-insensitive hashset.
-        let fromJsonRegex = /(\s*FromJson<\w*>\s*\(JsonObject\s*json\s*,\s*System\.Collections\.Generic\.IDictionary.*)(\s*)({)/gm
-        $ = $.replace(fromJsonRegex, '$1$2$3\n$2 if (excludes != null){ excludes = new System.Collections.Generic.HashSet<string>(excludes, global::System.StringComparer.OrdinalIgnoreCase);}');
-        return $;
-      }
-
-# Modify generated runtime IAssociativeArray interface.
-  - from: source-file-csharp
-    where: $
-    transform: >
-      if (!$documentPath.match(/generated%5Cruntime%5CIAssociativeArray.cs/gm))
-      {
-        return $;
-      } else {
-        // Remove Count from IAssociativeArray interface.
-        let countRegex = /int\s*Count\s*{\s*get;\s*}/gm
-        $ = $.replace(countRegex, '');
-
-        // Remove Keys from IAssociativeArray interface.
-        let keysRegex = /System\.Collections\.Generic\.IEnumerable<string>\s*Keys\s*{\s*get;\s*}/gm
-        $ = $.replace(keysRegex, '');
-
-        // Remove Values from IAssociativeArray interface.
-        let valuesRegex = /System\.Collections\.Generic\.IEnumerable<T>\s*Values\s*{\s*get;\s*}/gm
-        $ = $.replace(valuesRegex, '');
-
-        return $;
-      }
-
-# Serialize all $count parameter to lowercase true or false.
+  # Serialize all $count parameter to lowercase true or false.
   - from: source-file-csharp
     where: $
     transform: >
