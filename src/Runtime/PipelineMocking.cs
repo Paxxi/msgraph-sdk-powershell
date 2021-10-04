@@ -11,6 +11,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
     using System.Linq;
     using System.Net;
     using Microsoft.Graph.PowerShell.Runtime.Json;
+    using System.Threading;
 
     public enum MockMode
     {
@@ -218,7 +219,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
             return response;
         }
 
-        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, IEventListener callback, ISendAsync next)
+        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token, ISendAsync next)
         {
             counter++;
             var rqkey = $"{Description}+{Context}+{Scenario}+${request.Method.Method}+{request.RequestUri}+{counter}";
@@ -233,7 +234,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
                         requestClone = await request.CloneWithContent(request.RequestUri, request.Method);
                     }
                     // make the call
-                    var response = await next.SendAsync(request, callback);
+                    var response = await next.SendAsync(request, token);
 
                     // save the message to the recording file
                     SaveMessage(rqkey, requestClone, response);
@@ -247,7 +248,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
 
                 default:
                     // pass-thru, do nothing
-                    return await next.SendAsync(request, callback);
+                    return await next.SendAsync(request, token);
             }
         }
     }

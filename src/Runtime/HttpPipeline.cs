@@ -50,39 +50,9 @@ namespace Microsoft.Graph.PowerShell.Runtime
         /// (Provided to support out-of-module delegation for Azure Cmdlets)
         /// </summary>
         /// <param name="step">The Pipeline Step as a delegate</param>
-        public SendAsyncFactory(SendAsyncStepDelegate step) => implementation = (request, listener, next) => 
-            step(
-                request,
-                listener.Token, 
-                listener.Cancel, 
-                (id, token, getEventData) => listener.Signal(id, token, () => { 
-                    var data = EventDataConverter.ConvertFrom( getEventData() ) as EventData;
-                    data.Id = id;
-                    data.Cancel = listener.Cancel;
-                    data.RequestMessage = request;
-                    return data;
-                 }),
-                (req, token, cancel, listenerDelegate) => next.SendAsync(req, listener));
     }
 
     public partial class HttpPipeline : ISendAsync
     {
-        public HttpPipeline Append(SendAsyncStepDelegate item)
-        {
-            if (item != null)
-            {
-                Append(new SendAsyncFactory(item));
-            }
-            return this;
-        }
-
-        public HttpPipeline Prepend(SendAsyncStepDelegate item)
-        {
-            if (item != null)
-            {
-                Prepend(new SendAsyncFactory(item));
-            }
-            return this;
-        }
     }
 }

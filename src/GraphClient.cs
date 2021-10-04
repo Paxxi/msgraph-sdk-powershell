@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Graph.PowerShell.Runtime;
 using Microsoft.Graph.PowerShell.Security.Models;
@@ -21,8 +22,9 @@ namespace Microsoft.Graph.PowerShell
     /// <summary>
     ///     Low-level API implementation for the Security service.
     /// </summary>
-    public class GraphClient : IClient
+    public class GraphClient
     {
+        private static readonly string BaseUrl = "https://graph.microsoft.com/beta";
         private static readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
@@ -36,7 +38,7 @@ namespace Microsoft.Graph.PowerShell
                 onOk,
             Func<HttpResponseMessage,
                 Task<OdataError>, Task> onDefault,
-            IEventListener eventListener,
+            CancellationToken token,
             ISendAsync sender)
         {
             // Constant Parameters
@@ -44,7 +46,7 @@ namespace Microsoft.Graph.PowerShell
             {
                 var queryParameters = new List<string>();
                 // construct URL
-                var builder = new UriBuilder( url );
+                var builder = new UriBuilder( BaseUrl + url );
 
                 if (null != select && select.Length > 0)
                 {
@@ -62,36 +64,21 @@ namespace Microsoft.Graph.PowerShell
                 var uri = builder.Uri;
                 Debug.WriteLine($"Url: {uri}");
 
-                await eventListener.Signal(Events.URLCreated, uri);
-                if (eventListener.Token.IsCancellationRequested) return;
-
                 // generate request object
                 var request =
                     new HttpRequestMessage(Method.Get, uri);
-                await eventListener.Signal(Events.RequestCreated, uri);
-                if (eventListener.Token.IsCancellationRequested) return;
-
-                await eventListener.Signal(Events.HeaderParametersAdded, uri);
-                if (eventListener.Token.IsCancellationRequested) return;
 
                 // make the call
                 HttpResponseMessage response = null;
                 try
                 {
-                    await eventListener.Signal(Events.BeforeCall, request);
-                    if (eventListener.Token.IsCancellationRequested) return;
-
-                    response = await sender.SendAsync(request, eventListener);
-                    await eventListener.Signal(Events.ResponseCreated, response);
-                    if (eventListener.Token.IsCancellationRequested) return;
+                    response = await sender.SendAsync(request, token);
 
                     switch (response.StatusCode)
                     {
                         case HttpStatusCode.OK:
                         {
-                            await eventListener.Signal(Events.BeforeResponseDispatch,
-                                response);
-                            if (eventListener.Token.IsCancellationRequested) return;
+                            if (token.IsCancellationRequested) return;
 
                             await onOk(response,
                                 response.Content.ReadAsync<T>());
@@ -99,9 +86,7 @@ namespace Microsoft.Graph.PowerShell
                         }
                         default:
                         {
-                            await eventListener.Signal(Events.BeforeResponseDispatch,
-                                response);
-                            if (eventListener.Token.IsCancellationRequested) return;
+                            if (token.IsCancellationRequested) return;
 
                             await onDefault(response,
                                 response.Content.ReadErrorAsync());
@@ -112,7 +97,6 @@ namespace Microsoft.Graph.PowerShell
                 finally
                 {
                     // finally statements
-                    await eventListener.Signal(Events.Finally, request, response);
                     response?.Dispose();
                     request?.Dispose();
                 }
@@ -127,7 +111,7 @@ namespace Microsoft.Graph.PowerShell
                 onOk,
             Func<HttpResponseMessage,
                 Task<OdataError>, Task> onDefault,
-            IEventListener eventListener,
+            CancellationToken token,
             ISendAsync sender)
         {
             // Constant Parameters
@@ -135,7 +119,7 @@ namespace Microsoft.Graph.PowerShell
             {
                 var queryParameters = new List<string>();
                 // construct URL
-                var builder = new UriBuilder(
+                var builder = new UriBuilder(BaseUrl +
                     url
                     + Uri.EscapeDataString(objectId));
 
@@ -155,47 +139,27 @@ namespace Microsoft.Graph.PowerShell
                 var uri = builder.Uri;
                 Debug.WriteLine($"Url: {uri}");
 
-                await eventListener.Signal(Events.URLCreated, uri);
-                if (eventListener.Token.IsCancellationRequested) return;
-
                 // generate request object
                 var request =
                     new HttpRequestMessage(Method.Get, uri);
-                await eventListener.Signal(Events.RequestCreated, uri);
-                if (eventListener.Token.IsCancellationRequested) return;
-
-                await eventListener.Signal(Events.HeaderParametersAdded, uri);
-                if (eventListener.Token.IsCancellationRequested) return;
 
                 // make the call
                 HttpResponseMessage response = null;
                 try
                 {
-                    await eventListener.Signal(Events.BeforeCall, request);
-                    if (eventListener.Token.IsCancellationRequested) return;
-
-                    response = await sender.SendAsync(request, eventListener);
-                    await eventListener.Signal(Events.ResponseCreated, response);
-                    if (eventListener.Token.IsCancellationRequested) return;
+                    response = await sender.SendAsync(request, token);
+                    if (token.IsCancellationRequested) return;
 
                     switch (response.StatusCode)
                     {
                         case HttpStatusCode.OK:
                         {
-                            await eventListener.Signal(Events.BeforeResponseDispatch,
-                                response);
-                            if (eventListener.Token.IsCancellationRequested) return;
-
                             await onOk(response,
                                 response.Content.ReadAsync<T>());
                             break;
                         }
                         default:
                         {
-                            await eventListener.Signal(Events.BeforeResponseDispatch,
-                                response);
-                            if (eventListener.Token.IsCancellationRequested) return;
-
                             await onDefault(response,
                                 response.Content.ReadErrorAsync());
                             break;
@@ -205,7 +169,6 @@ namespace Microsoft.Graph.PowerShell
                 finally
                 {
                     // finally statements
-                    await eventListener.Signal(Events.Finally, request, response);
                     response?.Dispose();
                     request?.Dispose();
                 }
@@ -247,7 +210,7 @@ namespace Microsoft.Graph.PowerShell
             Task> onOk,
         Func<HttpResponseMessage,
             Task<OdataError>, Task> onDefault,
-        IEventListener eventListener,
+        CancellationToken token,
         ISendAsync sender)
     {
         // Constant Parameters
@@ -255,14 +218,14 @@ namespace Microsoft.Graph.PowerShell
         {
             // construct URL
             var queryParameters = new List<string>();
-            var builder = new UriBuilder(url);
+            var builder = new UriBuilder(BaseUrl + url);
             if (top > 0)
                queryParameters.Add("$top=" + Uri.EscapeDataString(top.ToString())); 
-            if (skip.HasValue)
+            if (skip.HasValue && skip.Value > 0)
                 queryParameters.Add("$skip=" + Uri.EscapeDataString(skip.ToString()));
             if (!string.IsNullOrEmpty(filter))
                 queryParameters.Add("$filter=" + Uri.EscapeDataString(filter));
-            if (count.HasValue)
+            if (count.HasValue && count.Value)
                 queryParameters.Add("$count=" + count.Value.ToString().ToLower());
             if (orderBy != null && orderBy.Length > 0)
                 queryParameters.Add("$order=" + Uri.EscapeDataString(string.Join(",", orderBy)));
@@ -274,20 +237,14 @@ namespace Microsoft.Graph.PowerShell
                 builder.Query = string.Join("&", queryParameters);
 
             var uri = builder.Uri;
-            await eventListener.Signal(Events.URLCreated, uri);
-            if (eventListener.Token.IsCancellationRequested) return;
 
             // generate request object
             var request =
                 new HttpRequestMessage(Method.Get, uri);
-            await eventListener.Signal(Events.RequestCreated, uri);
-            if (eventListener.Token.IsCancellationRequested) return;
 
-            await eventListener.Signal(Events.HeaderParametersAdded, uri);
-            if (eventListener.Token.IsCancellationRequested) return;
 
             // make the call
-            await ListCall(request, onOk, onDefault, eventListener, sender);
+            await ListCall(request, onOk, onDefault, token, sender);
         }
     }
         //    /// <summary>Actual wire call for <see cref="SecurityListSecurityActions" /> method.</summary>
@@ -316,7 +273,7 @@ namespace Microsoft.Graph.PowerShell
                 Task> onOk,
             Func<HttpResponseMessage,
                 Task<OdataError>, Task> onDefault,
-            IEventListener eventListener,
+            CancellationToken token,
             ISendAsync sender)
         {
             using (NoSynchronizationContext)
@@ -324,31 +281,20 @@ namespace Microsoft.Graph.PowerShell
                 HttpResponseMessage response = null;
                 try
                 {
-                    await eventListener.Signal(Events.BeforeCall, request);
-                    if (eventListener.Token.IsCancellationRequested) return;
 
-                    response = await sender.SendAsync(request, eventListener);
-                    await eventListener.Signal(Events.ResponseCreated, response);
-                    if (eventListener.Token.IsCancellationRequested) return;
+                    response = await sender.SendAsync(request, token);
+                    if (token.IsCancellationRequested) return;
 
                     switch (response.StatusCode)
                     {
                         case HttpStatusCode.OK:
                             {
-                                await eventListener.Signal(Events.BeforeResponseDispatch,
-                                    response);
-                                if (eventListener.Token.IsCancellationRequested) return;
-
                                 await onOk(response,
                                     response.Content.ReadCollectionAsync<T>());
                                 break;
                             }
                         default:
                             {
-                                await eventListener.Signal(Events.BeforeResponseDispatch,
-                                    response);
-                                if (eventListener.Token.IsCancellationRequested) return;
-
                                 await onDefault(response,
                                     response.Content.ReadErrorAsync());
                                 break;
@@ -358,7 +304,6 @@ namespace Microsoft.Graph.PowerShell
                 finally
                 {
                     // finally statements
-                    await eventListener.Signal(Events.Finally, request, response);
                     response?.Dispose();
                     request?.Dispose();
                 }
@@ -392,27 +337,19 @@ namespace Microsoft.Graph.PowerShell
                 onCreated,
             Func<HttpResponseMessage,
                 Task<OdataError>, Task> onDefault,
-            IEventListener eventListener,
+            CancellationToken token,
             ISendAsync sender)
         {
             // Constant Parameters
             using (NoSynchronizationContext)
             {
                 // construct URL
-                var uri = new Uri(url);
-
-                await eventListener.Signal(Events.URLCreated, uri);
-                if (eventListener.Token.IsCancellationRequested) return;
+                var uri = new Uri(BaseUrl + url);
 
                 // generate request object
                 var request =
                     new HttpRequestMessage(Method.Post,
                         uri);
-                await eventListener.Signal(Events.RequestCreated, uri);
-                if (eventListener.Token.IsCancellationRequested) return;
-
-                await eventListener.Signal(Events.HeaderParametersAdded, uri);
-                if (eventListener.Token.IsCancellationRequested) return;
 
                 // set body content
                 var content = Newtonsoft.Json.JsonConvert.SerializeObject(body, _serializerSettings);
@@ -420,11 +357,9 @@ namespace Microsoft.Graph.PowerShell
                 request.Content = new StringContent(content);
                 request.Content.Headers.ContentType =
                     MediaTypeHeaderValue.Parse("application/json");
-                await eventListener.Signal(Events.BodyContentSet, uri);
-                if (eventListener.Token.IsCancellationRequested) return;
 
                 // make the call
-                await CreateCall(request, onCreated, onDefault, eventListener, sender);
+                await CreateCall(request, onCreated, onDefault, token, sender);
             }
         }
 
@@ -455,7 +390,7 @@ namespace Microsoft.Graph.PowerShell
                 onCreated,
             Func<HttpResponseMessage,
                 Task<OdataError>, Task> onDefault,
-            IEventListener eventListener,
+            CancellationToken token,
             ISendAsync sender)
         {
             using (NoSynchronizationContext)
@@ -463,31 +398,19 @@ namespace Microsoft.Graph.PowerShell
                 HttpResponseMessage response = null;
                 try
                 {
-                    await eventListener.Signal(Events.BeforeCall, request);
-                    if (eventListener.Token.IsCancellationRequested) return;
-
-                    response = await sender.SendAsync(request, eventListener);
-                    await eventListener.Signal(Events.ResponseCreated, response);
-                    if (eventListener.Token.IsCancellationRequested) return;
+                    response = await sender.SendAsync(request, token);
+                    if (token.IsCancellationRequested) return;
 
                     switch (response.StatusCode)
                     {
                         case HttpStatusCode.Created:
                             {
-                                await eventListener.Signal(Events.BeforeResponseDispatch,
-                                    response);
-                                if (eventListener.Token.IsCancellationRequested) return;
-
                                 await onCreated(response,
                                     response.Content.ReadAsync<T>());
                                 break;
                             }
                         default:
                             {
-                                await eventListener.Signal(Events.BeforeResponseDispatch,
-                                    response);
-                                if (eventListener.Token.IsCancellationRequested) return;
-
                                 await onDefault(response,
                                     response.Content.ReadErrorAsync());
                                 break;
@@ -497,7 +420,6 @@ namespace Microsoft.Graph.PowerShell
                 finally
                 {
                     // finally statements
-                    await eventListener.Signal(Events.Finally, request, response);
                     response?.Dispose();
                     request?.Dispose();
                 }

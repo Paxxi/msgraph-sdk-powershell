@@ -13,8 +13,8 @@ namespace Microsoft.Graph.PowerShell.Runtime
     using System.Threading.Tasks;
     using GetEventData=System.Func<EventData>;
 
-    public delegate Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, IEventListener callback);
-    public delegate Task<HttpResponseMessage> SendAsyncStep(HttpRequestMessage request, IEventListener callback, ISendAsync next);
+    public delegate Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token);
+    public delegate Task<HttpResponseMessage> SendAsyncStep(HttpRequestMessage request, CancellationToken token, ISendAsync next);
     public delegate Task SignalEvent(string id, CancellationToken token, GetEventData getEventData);
     public delegate Task Event(EventData message);
     public delegate void SynchEvent(EventData message);

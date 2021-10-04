@@ -219,7 +219,7 @@ namespace Microsoft.Graph.PowerShell.Runtime.Cmdlets
                 {
                     await this.Signal(Runtime.Events.CmdletBeforeAPICall, Token);
                     if (Token.IsCancellationRequested) return;
-                    await Module.Instance.GraphClient.Create(Url, InputObject, OnCreated, OnDefault, this, Pipeline);
+                    await Module.Instance.GraphClient.Create(Url, InputObject, OnCreated, OnDefault, this.Token, Pipeline);
                     await this.Signal(Runtime.Events.CmdletAfterAPICall, Token);
                     if (Token.IsCancellationRequested) return;
                 }

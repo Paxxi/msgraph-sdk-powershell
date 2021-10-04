@@ -17,7 +17,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
     /// </summary>
     public interface ISendAsync
     {
-        Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, IEventListener callback);
+        Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token);
     }
 
     public class SendAsyncTerminalFactory : ISendAsyncTerminalFactory, ISendAsync
@@ -27,7 +27,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
         public SendAsyncTerminalFactory(SendAsync implementation) => this.implementation = implementation;
         public SendAsyncTerminalFactory(ISendAsync implementation) => this.implementation = implementation.SendAsync;
         public ISendAsync Create() => this;
-        public Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, IEventListener callback) => implementation(request, callback);
+        public Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token) => implementation(request, token);
     }
 
     public partial class SendAsyncFactory : ISendAsyncFactory
@@ -37,7 +37,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
             public ISendAsync next;
             public SendAsyncStep implementation;
 
-            public Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, IEventListener callback) => implementation(request, callback, next);
+            public Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token) => implementation(request, token, next);
         }
         SendAsyncStep implementation;
 
@@ -55,7 +55,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
         public HttpClientFactory(HttpClient client) => this.client = client;
         public ISendAsync Create() => this;
 
-        public Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, IEventListener callback) => client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, callback.Token);
+        public Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token) => client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, token);
     }
 
     public interface ISendAsyncFactory
@@ -137,24 +137,6 @@ namespace Microsoft.Graph.PowerShell.Runtime
             }
             return this;
         }
-
-        public HttpPipeline Append(SendAsyncStep item)
-        {
-            if (item != null)
-            {
-                Append(new SendAsyncFactory(item));
-            }
-            return this;
-        }
-
-        public HttpPipeline Prepend(SendAsyncStep item)
-        {
-            if (item != null)
-            {
-                Prepend(new SendAsyncFactory(item));
-            }
-            return this;
-        }
         public HttpPipeline Append(IEnumerable<SendAsyncStep> items)
         {
             if (items != null)
@@ -213,7 +195,7 @@ namespace Microsoft.Graph.PowerShell.Runtime
         }
 
         // you can use this as the ISendAsync Implementation
-        public Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, IEventListener callback) => Pipeline.SendAsync(request, callback);
+        public Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token) => Pipeline.SendAsync(request, token);
     }
 
     public static partial class Extensions

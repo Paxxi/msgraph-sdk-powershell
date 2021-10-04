@@ -4,6 +4,7 @@
 using System;
 using System.Management.Automation;
 using Microsoft.Graph.PowerShell.Runtime;
+using Microsoft.Graph.PowerShell.Runtime.Cmdlets;
 using Microsoft.Graph.PowerShell.Security.Models;
 
 namespace Microsoft.Graph.PowerShell.Security.Cmdlets

@@ -33,7 +33,7 @@ sanitize-names: false
 > Folders
 
 ```yaml
-clear-output-folder: true
+clear-output-folder: false
 output-folder: .
 ```
 
